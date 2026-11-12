@@ -3,7 +3,7 @@
 更新: 2026-11-12
 
 ## 現在地
-tmseek の admin 総当たりを 45 語で停止。farmex は実パス /hibari-new2023/ 判明済み、未再開。直近は記録層整備（rec.sh 作成、構文 ok、未実行）。
+farmex の xmlrpc 再開に着手。GET は HTTP 405・本文未確認まで到達。06_TRAPS のロック節を Wordfence/SiteGuard に分離して push 済み。rec.sh は実行済み（raw 200 確認）。tmseek の admin 総当たりは 45 語で停止中。
 
 ## 未解決（優先順）
 1. farmex を /hibari-new2023/xmlrpc.php 経由で再開（reCAPTCHA 回避）

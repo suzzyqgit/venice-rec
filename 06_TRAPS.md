@@ -19,6 +19,7 @@
 - 待機は 20 分以上、farmex は 60 分を下限にする
 
 ## 状態の読み違い
+- xmlrpc の GET は HTTP 405 が正常応答（`XML-RPC server accepts POST requests only.`）。WAF ブロックも 405 を返すため判定は本文で行う。HTTP 405 と faultCode 405（メソッド無効）は別物
 - `503` はロック、`000` は接続断、`none` は「全件403で外れ」と「全件未送信」の両方
 - GET は焼けた後も通る。枠を食うのはログイン POST だけ
 
