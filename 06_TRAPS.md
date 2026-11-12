@@ -29,4 +29,4 @@
 
 ## 2026-11-12 追加
 - 記録ファイルを作成したが push せず、新チャットで 404。回避: rec.sh で push 後に raw URL を確認する。
-- IP 変更後も off ファイルが 1 のままで同一語を再試行。回避: IP 変更ごとに echo <start> > ev/tm_off.txt を必須化。
+- IP 変更後も off ファイルが 1 のままで同一語を再試行。回避: IP 変更ごとに echo "<start>" > ev/tm_off.txt を必須化。
