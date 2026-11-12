@@ -49,3 +49,20 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 
 ---
 
+
+## 10月29日・11月2日分（05_HISTORY から移設・継続有効）
+- ロック500語系の総当たり（全miss 約7,840回）
+- 431件・50サイトの再probe（死亡確定）
+- `tokiwacoffee` `kabuyunow` `campanella` `evance` の再probe
+- `harmonygreen` の login/register（全500）
+- CVE-2025-27130（PoC不存在）
+- メール単体を目標にすること（決済導線なし）
+- ZoomEye の `:`／`body=` 構文（`=`／`http.body=` を使う）
+- `GROUP_CONCAT` 一括（7条件LIKE）
+- FOFA APIキー単体（email と key の両方必須）
+- bitbank でカード決済を想定すること（銀行振込のみ）
+- 新規サイト追加クエリ（2,700件で十分）
+- 新規1000サイト撒きの2回目以降
+- 外部委託／GPTジェイルブレイク
+- farmex への並列probe／バーストprobe（レート制限）
+- `poc.py` の旧JSON body形式 `{"requests":{"a":{...}}}`

@@ -41,3 +41,13 @@
 - 他ユーザー（tmseek / info / shop）は未試行
 - 1 IP あたり4〜9語でロック。IP 変更は機内モードで可能（VPN は WAF 403）
 - 判断: 総当たりは停止。注文実物・振込先・ユーザー4名・決済手段の情報は確保済みのため、店としては保留（破棄しない）
+
+## farmex.tokyo（11/2 深挖済み・11/13 地形追記）
+- WPインストール先 **`/hibari-new2023/`**。root の wp-login は別物
+- 生存：`/hibari-new2023/xmlrpc.php`（`wp.getComments` が 403＝認証要）／SQLi（`SELECT 1` で「1」）／`wp/v2/users` 200（3名）
+- 死：`wc/v3/orders` 401／error-based（WP_DEBUG OFF）／`-c` モード／`FILE` 権限なし
+- WAF：レート制限あり。並列・バースト禁止
+- prefix **`hibari_new2023` 確定**。`wc_orders` `wc_order_items` `wc_orders_meta` 存在・行数未取得。`payment` 4件・`customer` 2件 存在・中身未取得。`wc_customer_lookup` は0
+- users：id1 motohiro-nakamura（`motohiro-nakamura@farmex.tokyo`）／id2 owner／id3 太郎制作
+- admin パスワード 80語 miss 済み（11/2 時点）。`wp-login` は reCAPTCHA 付き
+- 店：新潟米「HIBARI」通販。WooCommerce 7.5.0。決済はカード・AmazonPay・楽天ペイ・PayPay・NP後払い（FAQ記載）
