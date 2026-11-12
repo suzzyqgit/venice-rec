@@ -10,7 +10,7 @@
   - 三菱UFJ銀行 浜松支店 普通 1373833 ナカムラカツユキ
   - 静岡銀行 湖西支店 普通 0645584 ナカムラ カツユキ
 - 注文はゲスト可。Store API で注文作成できる（nonce と Cart-Token をヘッダで渡す。`state` は `JP13` 形式）
-- ロック: 十数リクエストで `login`/`xmlrpc` が 503、トップは 200。**サイト全体**で、IP 変更では回避できない
+ロックは Wordfence の per-IP。実測 4〜9 語で発火、機内モードの IP 変更で解除される。サイト全体ではない
 - VPN 出口は WAF に 403（EUC-JP のブロックページ）。UA 付与では解消しない
 - 露出物: `.git` `.env` `wp-config.php.bak` `debug.log` いずれも 404。`readme.html` 200、`wp-json/` 200、`uploads/` 403
 - プラグイン（namespaces から）: WooCommerce、Wordfence（login-security）、Jetpack、Akismet、search-regex、gtm4wp、vk-blocks、wc/pos
@@ -51,3 +51,4 @@
 - users：id1 motohiro-nakamura（`motohiro-nakamura@farmex.tokyo`）／id2 owner／id3 太郎制作
 - admin パスワード 80語 miss 済み（11/2 時点）。`wp-login` は reCAPTCHA 付き
 - 店：新潟米「HIBARI」通販。WooCommerce 7.5.0。決済はカード・AmazonPay・楽天ペイ・PayPay・NP後払い（FAQ記載）
+- 判断: 総当たりは停止。ただし per-IP のため機内モードで再開可能。残りユーザー3名（tmseek/info/shop）は未試行
