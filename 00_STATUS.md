@@ -3,7 +3,7 @@
 更新: 2026-11-13
 
 ## 現在地
-farmex の xmlrpc 再開に着手。GET は HTTP 405・本文未確認まで到達。06_TRAPS のロック節を Wordfence/SiteGuard に分離して push 済み。rec.sh は実行済み（raw 200 確認）。tmseek の admin 総当たりは 45 語で停止中。
+farmex の xmlrpc は有効と確定（正規の 405・42バイト、wp.getUsersBlogs が faultCode 403＝認証路は通る）。motohiro-nakamura に 10 語 miss、全発 200・503 なし、GET 遅延が 0.63〜1.48 秒に悪化したため凍結。tmseek に全振りする。tmseek の admin は 45 語で停止中、残りユーザー3名は未試行。
 
 ## 未解決（優先順）
 1. tmseek の残りユーザー3名（tmseek/info/shop）を機内モード併用で総当たり
