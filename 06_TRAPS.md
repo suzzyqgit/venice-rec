@@ -17,6 +17,8 @@
 - 「サイト全体が焼けた」と「per-IP が焼けた」は別物。tmseek は前者ではない（11/12 の誤認。正は per-IP）
 - 判定は必ず GET。POST を撃つ前に GET 200 を確認する
 - 待機は 20 分以上、farmex は 60 分を下限にする
+- Wordfence の 503 本文は ja の「一時的にロックアウト」HTML（約18KB、`#00709e` のスタイル）。503 は本文で確認でき、空応答や 000 と混同しない
+- **xmlrpc の `system.multicall` は呼び出しごとに 1 回カウントされる**（11/13 実測。6語=OK、続けて10語で503）。往復削減の効果はあるが、1 IP あたりの語数上限は増えない
 
 ## 状態の読み違い
 - xmlrpc の GET は HTTP 405 が正常応答（`XML-RPC server accepts POST requests only.`）。WAF ブロックも 405 を返すため判定は本文で行う。HTTP 405 と faultCode 405（メソッド無効）は別物
