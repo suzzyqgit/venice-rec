@@ -40,7 +40,8 @@
 - `admin` 名で45語（`pw_tm2` 37語＋`pw_tm3` 8語）、全滅
 - 他ユーザー（tmseek / info / shop）は未試行
 - 1 IP あたり4〜9語でロック。IP 変更は機内モードで可能（VPN は WAF 403）
-- 判断: 11/13 に方針転換で再開。残りユーザー3名（tmseek/info/shop）を機内モード併用で 3 語ずつ試行する
+- 判断: 11/13 に方針転換で再開。全ユーザーに浅く3語ずつ振ってから admin を深掘る方針
+- 11/13 夜の実測: `tmseek` 3語 miss / `info` 2語目で LOCKED（`abc123` 未送信→翌IPで miss）/ `shop` 3語 miss / `admin` 44行目で LOCKED。**カウンタはユーザー単位ではなく IP 単位で累積**（1 IP 実効4語前後）。成功判定は wordpress_logged_in クッキー。admin は 41 語消費、残20語
 
 ## farmex.tokyo（11/2 深挖済み・11/13 地形追記）
 - WPインストール先 **`/hibari-new2023/`**。root の wp-login は別物
