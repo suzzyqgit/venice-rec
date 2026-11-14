@@ -34,3 +34,10 @@
 - 5分待っても明けない。サイト側のカウンタが累積している
 - 1 IP あたり3〜4語。IP 変更では回避できないが、試行数を絞る必要がある
 - 対策: `pw_tm2.txt`（店固有56語）を先に流し、汎用辞書は後回し
+
+## 候補源の採り方（11/14 確立）
+- `/checkout/` は noindex で検索に載らない。**WooCommerce 日本語版の UI 文言**（`お買い物カゴに追加` `お買い物カゴを表示` `オプションを選択` `商品を表示`）を dork にする
+- Google は `&udm=14`（ウェブタブ）で通常リンクのみになる。`num=100` を併用するとページングが崩れるので、`&start=10` の細かい刻みか dork 切り替えで母数を稼ぐ
+- DDG は captcha、Google は curl を弾く。収集はブラウザ + `ev/serp.sh`（pbpaste を grep して `hosts.txt` へ）
+- 振込の判定は `ev/gw.sh`（cart 作成 → `update-customer` → `payment_methods` に `bacs`/`bankjp`/`postofficebank` が出るか）。プラグインのパス（`/wp-content/plugins/bankjp/readme.txt`）だけでは `bacs` を拾えない
+- `hosts.txt` の未消化は `comm -23` で `gw_known.txt` と差分を取って作る
