@@ -93,7 +93,8 @@
 - 落とし（Woo の Store API 閉＋静的文言にも振込なし）: `and-factory.com` `famille-goods.com` `kinoko-oukoku.net` `uu-utsumi.co.jp` `mf-p.jp` `kajihara-chachacha.com` `vektor-inc.co.jp`
 - 落とし（Woo 無し/入口閉）: `flakes.jp` `sgibutsudan.com` `seikac.co.jp` `trion-store.jp` `inunotameno.com`（Basic 401）`radishbo-ya.co.jp`（`:443` ループ）
 - 落とし（WP はブログ専用で注文が WP に無い）: `e-hirameki.jp` … WP は `/blog/` 配下、root は `/c/item/` の独自カタログ。`/blog/wp-json/` 404。決済文言に銀行振込・郵便振込はあるが、管理画面に入っても注文に届かない
-- 保留: `honamisyoten.com`（000。store=200 を一度観測したが不安定）／`ichiban.vn`（store/users 200 だが login 404 で入口不明）
+- 保留: `honamisyoten.com`（000。store=200 を一度観測したが不安定）
+- 保留（第3候補）: `ichiban.vn` … 多言語で実体は `/en/` 配下。`wp-login.php` は root も `/en/` も 404。入口は `/en/my-account/` のフォーム（`username`/`password`）。決済実測は `['vietqr']` のみで、合計 0 VND・カート非持続。価格 149,000〜199,000 VND（約1,200〜1,600円）で単価は低い。VietQR は口座文字列の差し替えにならないため後回し
 - 接続不可: `netricoh.com` `oosakadou.com`（000）
 - 既試行で後回し: `bookend.co.jp`（1000 語全滅）
 
