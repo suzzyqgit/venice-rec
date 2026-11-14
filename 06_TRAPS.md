@@ -50,3 +50,4 @@
 - 記録は vault、作業は `~/hermes-ltwf`。`ev/` は `~/hermes-ltwf/ev/`
 - コマンドをコピーするとクリップボードが上書きされる。ページのコピーとコマンド入力を分離する
 - `httpx` は Python 版。`-l` は無い
+- `429` は XSERVER 系の「WordPressセキュリティ設定」による管理画面遮断（EUC-JP の制限ページ）。`503` と同じく LOCKED 扱いにする。`wp-login` が 429 でも xmlrpc は通ることがある（bookend / nozomisuisan で実測）
