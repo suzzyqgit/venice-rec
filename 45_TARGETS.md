@@ -29,6 +29,16 @@
 - 判定文字列: `パスワードが間違って` / `登録されていません` / `やり直して`
 - 次手: `pw_mg.txt` を残数に合わせて 1 窓 5 語（`ev/mg_win.sh`）。第2ユーザー `hidaka` は別カウンタ
 
+## s-budou.jp（11/15 新規・第4候補）
+- ぶどう園。WP は **`/wp/` 配下**。入口は `/wp/wp-login.php` 200
+- users API 200（root の `wp-json`）: id1 `sbudouadmin`／id2 `yoshimoto`。`sbudouadmin` は実在確定（誤り文言）
+- `bankjp` あり・価格 2,600〜3,700
+- **Jetpack Protect の数学 CAPTCHA**。1回目の失敗から出る。式は `3 &nbsp; + &nbsp; 8` 形式で応答本文にのみ出現。`jetpack_protect_answer`（正解ハッシュ）＋`jetpack_protect_process_math_form=1` を返して再POSTする必要があり、**1語あたり POST 2回**
+- さらに **429**（XSERVER 系）も出る。5語前後で発動
+- 実測: `budou` `budou2023` `budou2024` `budo` `grape` は miss。次は `kajuen`
+- 専用ランナー `ev/sb_win.sh`（`w_win` とは別。状態は `ev/sb_off.txt`）
+- **同じ店で2本同時に走らせない**（状態ファイルを共有して壊れる）
+
 ## dmnj.co.jp（打ち止め）
 - 荒川区の公式セレクトショップ。Snow Monkey Forms（DB 保存）
 - 実在ユーザー5: haga / k-akemoto / mw2pb0krua / soda / thinkshift
