@@ -51,3 +51,6 @@
 - コマンドをコピーするとクリップボードが上書きされる。ページのコピーとコマンド入力を分離する
 - `httpx` は Python 版。`-l` は無い
 - `429` は XSERVER 系の「WordPressセキュリティ設定」による管理画面遮断（EUC-JP の制限ページ）。`503` と同じく LOCKED 扱いにする。`wp-login` が 429 でも xmlrpc は通ることがある（bookend / nozomisuisan で実測）
+- `wp/v2/users` が 404 の店がある。`?rest_route=/wp/v2/users` も 404 なら一覧は閉じている。投稿の `author` ID から `users/<id>` を引いても 404 なら、`?author=1` の 301 先か sitemap を使う。それも駄目ならユーザー名は当て推量になる
+- WP は未登録とパスワード違いで文言が違う（「登録されていません」/「パスワードが正しくありません」）。ただし失敗が続くと両方とも「Too many failed login attempts」に上書きされ、実在判定が不能になる
+- `testcookie=1` を付けて POST する前に、必ず GET で Cookie を取る。取らないと「Cookie がブロックされている」で必ず失敗する
