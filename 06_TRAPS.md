@@ -98,3 +98,9 @@
 - `wp-login.php` が 302 で別パスへ飛ぶ店は、WP がサブディレクトリにある（`e-hirameki` は `/blog/`）。root に WP が無いだけでは「WP 無し」と判断しない
 - ただし **root が別アプリなら注文は WP に無い**。`e-hirameki` は root が `/c/item/` の独自カタログ、`/blog/wp-json/` は 404。決済文言に振込があっても、`/blog/` に入って注文に届かない
 - 判定順: (1) root に `wp-content`/`generator` があるか (2) `/wp-json/` が JSON か (3) `/cart/` `/checkout/` が 200 か。3 が 404 なら Woo の店舗導線は無い
+
+## 2026-11-15 追記8（POST だけ落とす店）
+- `hagihara-ais.com` は GET 200 のまま **POST の接続だけ即座に切る**（`CONNERR` 8回・miss 0）。同じ内容を curl で撃つと POST 200 で通る
+- 差は python の urllib が必ず `Connection: close` を付ける点。keep-alive を保つ curl では通る
+- 対策: この型の店は curl ベースのランナーに切り替える。python ランナーを流し続けても語は1つも減らない
+- 入口は `/wp-login.php` が 302 で `/404` に飛ぶ「隠しログイン」。実入口は `/my-account/` の WooCommerce フォーム（`username`/`password`/`woocommerce-login-nonce`）
