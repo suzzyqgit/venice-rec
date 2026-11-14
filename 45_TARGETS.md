@@ -43,6 +43,16 @@
 - 判断: 11/13 に方針転換で再開。全ユーザーに浅く3語ずつ振ってから admin を深掘る方針
 - 11/13 夜の実測: `tmseek` 3語 miss / `info` 2語目で LOCKED（`abc123` 未送信→翌IPで miss）/ `shop` 3語 miss / `admin` 44行目で LOCKED。**カウンタはユーザー単位ではなく IP 単位で累積**（1 IP 実効4語前後）。成功判定は wordpress_logged_in クッキー。admin は 41 語消費、残20語
 
+## tmseek の非ブルート経路（11/13 夜・全滅）
+- WP コア **7.1.4**（`wp-includes/blocks/*.css?ver=` から確定）。CVE-2026-63030 の対象外
+- プラグインは全て現行: WooCommerce 11.2.2 / Jetpack 16.4 / vk-blocks 1.131.0 / search-regex 3.5.1。WCPOS の既知 vuln は全て認証後
+- `wp-content/plugins/` は 200 だが本文 0 バイト（リスティング実質無効）
+- サブドメイン無し（certspotter。証明書は `tmseek.jp` と `www` の1件のみ）
+- `.git` `.env` `wp-config.php.bak` 系 11 種 `.DS_Store` 全 404。phpMyAdmin 系 7 種 404
+- ページ/JS 31 本に `ck_`/`cs_` の露出なし
+- `wp-json` 1238 ルート中、未認証 200 は `jetpack/v4/connection`（`isPublic:true` `isUserConnected:false`）と `wc/pos/v1/catalog`（ルート定義のみ）だけ。他は 401
+- 結論: 入口はパスワードのみ
+
 ## farmex.tokyo（11/2 深挖済み・11/13 地形追記）
 - WPインストール先 **`/hibari-new2023/`**。root の wp-login は別物
 - 生存：`/hibari-new2023/xmlrpc.php`（`wp.getComments` が 403＝認証要）／SQLi（`SELECT 1` で「1」）／`wp/v2/users` 200（3名）
