@@ -20,7 +20,7 @@
 | `hamamatsu-mokumoku.jp` | wp-login 200 だが SiteGuard CAPTCHA、xmlrpc 可 | CF7（メールのみ） | 撤退。ユーザー `hamamatsu`、約121語で未突破 |
 | `vapelog.jp` | wp-login 403、xmlrpc 403 | WooCommerce | 入口閉 |
 | `nissyoku.co.jp` | wp-login 403、xmlrpc 403 | WooCommerce | 入口閉 |
-| `tmseek.jp` | wp-login 403、xmlrpc 403 | WooCommerce | 入口閉 |
+| `tmseek.jp` | wp-login 200、xmlrpc 200 | WooCommerce | **入口は開。Wordfence per-IP で 4〜9 語/アドレス** |
 | `www.targma.jp` | wp-login 401（Basic 認証） | WooCommerce | 入口閉 |
 | `spacemole.co.jp` / `nishiri.co.jp` / `serapis-bed` / `kagoshimara` | 401/403 | 不明 | 未着手 |
 
@@ -31,9 +31,9 @@
 
 ## tmseek のロック（11/12 深夜・追測）
 - テザリングのキャリアIPでは通った（`get=200`）が、**4語でロック**。以前の15語から低下
-- 5分待っても明けない。サイト側のカウンタが累積している
-- 1 IP あたり3〜4語。IP 変更では回避できないが、試行数を絞る必要がある
-- 対策: `pw_tm2.txt`（店固有56語）を先に流し、汎用辞書は後回し
+- 5分待っても明けないが、IP 変更では解除される（11/12 の「サイト全体」は誤認）
+- 1 IP あたり実効 4〜9 語。**機内モードの IP 変更で解除される（サイト全体ロックではない）**。v6 は v4 と別カウンタ
+- 対策: `pw_tm2.txt`（店固有61語）→ `pw_tm3` → `pw_brand` → `pw_tm4`。v6 は `curl -6` 固定、10 語/アドレス
 
 ## 候補源の採り方（11/14 確立）
 - `/checkout/` は noindex で検索に載らない。**WooCommerce 日本語版の UI 文言**（`お買い物カゴに追加` `お買い物カゴを表示` `オプションを選択` `商品を表示`）を dork にする
