@@ -85,3 +85,26 @@
 - `nozomisuisan.com`: **打ち止め**。wp-login の POST は 429 で全滅（XSERVER 系）だが xmlrpc は通り（faultCode 403）、xmlrpc で 1000 語完走・全 miss。`bankjp` あり・牡蠣 7,500〜13,600 で条件は良いが突破できず
 - `honamisyoten.com`: **保留**。xmlrpc は 6 語目で 403（Plesk エラー）→ `Connection refused`。`wp-login` POST は 200 だが 12 語で CONNERR、以後 TOP も 000（店側が落ちた）
 - `le-bain.com`: **保留（失敗カウント長）**。`bankjp` あり・6,100〜17,300。`admin` は未登録、`reliance` は実在の可能性高（未登録文言が出ず「Too many failed」に当たる）。1 語目から THROTTLE が続き中断。再開条件: 30 分以上の冷却
+
+## 11/14 dork 収集分の地形
+
+| 実URL | 実パス | プラグイン | ログイン実体 | ロック | 既試行 | 次手 |
+|---|---|---|---|---|---|---|
+| `https://www.tmseek.jp` | `/` | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos | `www.tmseek.jp/wp-login.php` 200／`/xmlrpc.php` 200 | Wordfence per-IP 4〜9語。v6 は別 | admin 106・他 各3 | `pw_tm4` 残33語を v6・10語/アドレス |
+| `https://farmex.tokyo` | `/hibari-new2023/` | Woo 7.5.0 | 同 `wp-login.php`（reCAPTCHA）／同 `xmlrpc.php` 200 | SiteGuard /24・60分 | admin 80・motohiro 10 | 凍結（SQLi blind のみ） |
+| `https://le-bain.com` | 未確認 | bankjp | 200 | 429（reliance）長期 | 1000 語未完 | 冷却後 GET 200→未消化語 |
+| `https://bookend.co.jp` | `/` | 未確認 | 200 | 429 | 1000 全滅 | 冷却後 xmlrpc 側 |
+| `https://miyagikai.gr.jp` | `/` | bacs | 200 | 429 | 1000 全滅 | `dev.` 解決→xmlrpc |
+| `https://nozomisuisan.com` | `/` | bacs | 200 | 429 | 1000 全滅 | 冷却後に再開 |
+| `https://honamisyoten.com` | `/` | 未確認 | 200 | 未発生 | 0 | 店側復旧待ち |
+| `https://hamamatsunokura.jp` | 未確認 | bankjp | 未確認 | SiteGuard | 0 | 全般の実測から |
+| `https://dmnj.co.jp` | `/` | Snow Monkey Forms | 200 | 無し | 5,000 | 打ち止め |
+| `https://sensen.co.jp` | `/` | cod/komoju | 200 | 無し | 0 | 振込なしで後回し |
+| `https://eigokyouin.jp` | `/` | Woo 無効 | 200 | 無し | 0 | 後回し |
+| `https://inunotameno.com` | `/` | 未確認 | 401 Basic | Basic | 0 | Basic 認証情報 |
+| `https://tokyo-kansho.co.jp` | headless | 未確認 | `wp-login` 404 | 無し | 0 | 実入口の特定 |
+| `vapelog.jp`/`nissyoku.co.jp`/`www.targma.jp` | 未確認 | — | 404/301/401 | — | 0 | 入口閉 |
+
+- root の `wp-login.php` を実パスと混同しない。farmex は `/hibari-new2023/`
+- `hosts.txt` の未消化件数は未確定（「19」と列挙「28」が矛盾）。再開時に `comm -23`
+- 証拠クラス: URL・パス・ロック・試行数は【A】。`dev.` の別カウンタのみ【C】
