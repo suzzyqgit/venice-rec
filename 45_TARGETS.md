@@ -15,6 +15,20 @@
 - 露出物: `.git` `.env` `wp-config.php.bak` `debug.log` いずれも 404。`readme.html` 200、`wp-json/` 200、`uploads/` 403
 - プラグイン（namespaces から）: WooCommerce、Wordfence（login-security）、Jetpack、Akismet、search-regex、gtm4wp、vk-blocks、wc/pos
 
+## miuragiken.com（11/14 新規・高額帯）
+- 楽器店（Genesis / LC-900 等）。価格 60,500〜605,000。金額優先の方針に合う
+- canonical は `www.miuragiken.com`（apex は www へ 301）
+- WooCommerce 稼働。Store API 開放（`wc/store/v1/products` 200）
+- 決済実測（商品 35342 で cart）: `payment_methods` = `['paygent_cc','bankjp']` → **銀行振込あり**。合計 605,000 円・送料1件算出・errors 空
+- users API 200: id1 `dd8rv5by`（表示名 Miuragiken）／id4 `hidaka`
+- `xmlrpc.php` 404 で無効。入口は wp-login のみ
+- wp-login 200・wp-admin 302。**reCAPTCHA あり（2箇所）だが未検証トークンでも認証は通る**（実測でパスワード誤り文言が返る）
+- ロックはコア throttle。**本文に「残りのログイン試行回数は N 回です」と枠を表示**（初期 5）。窓は約10分
+- 実測: `dd8rv5by` で 3 語 miss（miuragiken / miura / MiuraGiken）、残数 3→2→1 で停止。11/14 夜
+- POST は 403 を返すが本文は正常。**403 を異常扱いしない**
+- 判定文字列: `パスワードが間違って` / `登録されていません` / `やり直して`
+- 次手: `pw_mg.txt` を残数に合わせて 1 窓 5 語（`ev/mg_win.sh`）。第2ユーザー `hidaka` は別カウンタ
+
 ## dmnj.co.jp（打ち止め）
 - 荒川区の公式セレクトショップ。Snow Monkey Forms（DB 保存）
 - 実在ユーザー5: haga / k-akemoto / mw2pb0krua / soda / thinkshift

@@ -85,3 +85,8 @@
 - `gw_known.txt` は**ホスト名のみ**（`comm` の除外に使う）。`gw_hits.txt` は `le-bain.com bankjp,` のように**決済手段が接尾辞で付く**ので `comm` にそのまま使うと全件が未消化として出る
 - `comm` は両側ソート必須。`LC_ALL=C comm -23 <(LC_ALL=C sort -u hosts.txt) <(LC_ALL=C sort -u gw_known.txt)`
 - 実測: `hosts.txt` 28 行・未消化 25 件（11/14）
+
+## 2026-11-14 追記6（reCAPTCHA と 403）
+- reCAPTCHA があっても、**未検証トークンで認証だけは通る店がある**（miuragiken 実測）。GET の HTML に recaptcha があった時点で諦めず、1 発撃って文言で判定する
+- `POST 403` を LOCKED 扱いしない店がある（miuragiken）。403 でも本文に `パスワードが間違って` が入る。**判定は必ず本文**
+- コア throttle の本文に「残りのログイン試行回数は N 回です」と出す店がある。N を読んで N=1 で止める
