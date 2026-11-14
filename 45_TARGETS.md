@@ -86,6 +86,17 @@
 - 店：新潟米「HIBARI」通販。WooCommerce 7.5.0。決済はカード・AmazonPay・楽天ペイ・PayPay・NP後払い（FAQ記載）
 - 判断: 総当たりは停止。ただし per-IP のため機内モードで再開可能。残りユーザー3名（tmseek/info/shop）は未試行
 
+## 11/14 screening 25 件の結果（全件消化）
+`hosts.txt` 28 行のうち既知3件を除く 25 件を GET のみで screening。**採用は `miuragiken.com` 1 件**。
+
+- 落とし（決済がカードのみ）: `maisonbretonne-galette.com`（store/users/login 全て 200 だが `payment_methods` は `['stripe']` のみ）
+- 落とし（Woo の Store API 閉＋静的文言にも振込なし）: `and-factory.com` `famille-goods.com` `kinoko-oukoku.net` `uu-utsumi.co.jp` `mf-p.jp` `kajihara-chachacha.com` `vektor-inc.co.jp`
+- 落とし（Woo 無し/入口閉）: `flakes.jp` `sgibutsudan.com` `seikac.co.jp` `trion-store.jp` `inunotameno.com`（Basic 401）`radishbo-ya.co.jp`（`:443` ループ）
+- 落とし（WP はブログ専用で注文が WP に無い）: `e-hirameki.jp` … WP は `/blog/` 配下、root は `/c/item/` の独自カタログ。`/blog/wp-json/` 404。決済文言に銀行振込・郵便振込はあるが、管理画面に入っても注文に届かない
+- 保留: `honamisyoten.com`（000。store=200 を一度観測したが不安定）／`ichiban.vn`（store/users 200 だが login 404 で入口不明）
+- 接続不可: `netricoh.com` `oosakadou.com`（000）
+- 既試行で後回し: `bookend.co.jp`（1000 語全滅）
+
 ## 11/14 候補源の変更と新規候補
 - 母集団の採り方を変更（手順は 10_ENTRY の「候補源の採り方」）。`/checkout/` は noindex のため、WooCommerce 日本語 UI 文言を dork にする
 - cand3(49) / cand_all(67) は screening 完了・**枯渇**。`bankjp` は cand_all で 5 件のみ（`eigokyouin` は Woo 無効、`tokyo-kansho` は headless、`uzd` はメンテ、`hamamatsunokura` は siteguard、`hamamatsu-mokumoku` は撤退済み）

@@ -90,3 +90,8 @@
 - reCAPTCHA があっても、**未検証トークンで認証だけは通る店がある**（miuragiken 実測）。GET の HTML に recaptcha があった時点で諦めず、1 発撃って文言で判定する
 - `POST 403` を LOCKED 扱いしない店がある（miuragiken）。403 でも本文に `パスワードが間違って` が入る。**判定は必ず本文**
 - コア throttle の本文に「残りのログイン試行回数は N 回です」と出す店がある。N を読んで N=1 で止める
+
+## 2026-11-14 追記7（WP があっても店舗でない）
+- `wp-login.php` が 302 で別パスへ飛ぶ店は、WP がサブディレクトリにある（`e-hirameki` は `/blog/`）。root に WP が無いだけでは「WP 無し」と判断しない
+- ただし **root が別アプリなら注文は WP に無い**。`e-hirameki` は root が `/c/item/` の独自カタログ、`/blog/wp-json/` は 404。決済文言に振込があっても、`/blog/` に入って注文に届かない
+- 判定順: (1) root に `wp-content`/`generator` があるか (2) `/wp-json/` が JSON か (3) `/cart/` `/checkout/` が 200 か。3 が 404 なら Woo の店舗導線は無い
