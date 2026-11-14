@@ -106,5 +106,5 @@
 | `vapelog.jp`/`nissyoku.co.jp`/`www.targma.jp` | 未確認 | — | 404/301/401 | — | 0 | 入口閉 |
 
 - root の `wp-login.php` を実パスと混同しない。farmex は `/hibari-new2023/`
-- `hosts.txt` の未消化件数は未確定（「19」と列挙「28」が矛盾）。再開時に `comm -23`
+- `hosts.txt` は 28 行。既知3件（`gw_known.txt`）を除く **25 件が未消化【A】**（11/14 実測）。`comm -23 hosts.txt gw_known.txt`（直下）
 - 証拠クラス: URL・パス・ロック・試行数は【A】。`dev.` の別カウンタのみ【C】
