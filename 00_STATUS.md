@@ -5,6 +5,9 @@
 ## 現在地
 突破実績ゼロ・入金ゼロ。候補源を dork へ変更して 28 件収集、振込店 3 件（`le-bain` bankjp / `miyagikai` bacs / `nozomisuisan` bacs）を特定。`bookend` `miyagikai` `nozomisuisan` は rockyou 1000 語で全滅（429）。`le-bain` は 429 継続で保留。`honamisyoten` は店側復旧待ち。tmseek は admin 106 語ほかで停滞、farmex は凍結。
 
+## 正本
+完全引継書 v2.0 は `11月12日.md`（§0〜§13＋出力B/C/D＋引き継ぎ行）。`11月14日.md` は改訂ソース、`11月14日_v1.0.md` は退避。
+
 ## 未解決（優先順）
 1. `le-bain.com` の再開（429/reliance の冷却後に GET 200 を確認してから）
 2. 母集団の拡大（dork の文言切替。`start` 深掘りは尽きている）
