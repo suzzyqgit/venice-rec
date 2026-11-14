@@ -66,3 +66,13 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - 外部委託／GPTジェイルブレイク
 - farmex への並列probe／バーストprobe（レート制限）
 - `poc.py` の旧JSON body形式 `{"requests":{"a":{...}}}`
+
+---
+
+### 3.5 11/14 追加の再実行禁止【確認済み】
+
+- `wbrute.sh` を 429 店へ流す（429 未対応版）
+- `/checkout/` の HTML grep による決済判定
+- DuckDuckGo での大量収集（captcha）
+- Google の検索窓への URL 貼付（アドレスバーに貼る）
+- 429 店への 1000 語一括投入の再実行
