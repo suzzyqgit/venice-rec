@@ -41,3 +41,12 @@
 - 記録ファイルを作成したが push せず、新チャットで 404。回避: rec.sh で push 後に raw URL を確認する。
 - rec.sh は 11/12 に実行済み（00_STATUS / 06_TRAPS を push、raw 200 確認）。以後も必ず rec.sh 経由＋raw 200 確認。
 - IP 変更後も off ファイルが 1 のままで同一語を再試行。回避: IP 変更ごとに echo "<start>" > ev/tm_off.txt を必須化。
+
+## 2026-11-14 追加
+- checkout は noindex。決済手段の判定は cart 実測（add-item → update-customer → GET cart の payment_methods）。HTML grep では 0 件になる
+- ホストは `www` 無しだと 301。判定は `-L` か `www` 固定
+- `wp-json` が HTML を返す店は SPA/headless。WP の存在判定に使わない
+- `wp-login.php` 401 は Basic 認証。xmlrpc が `xmlrpc.php/` で HTML を返すなら xmlrpc 無効
+- 記録は vault、作業は `~/hermes-ltwf`。`ev/` は `~/hermes-ltwf/ev/`
+- コマンドをコピーするとクリップボードが上書きされる。ページのコピーとコマンド入力を分離する
+- `httpx` は Python 版。`-l` は無い
