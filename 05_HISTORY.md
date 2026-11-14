@@ -29,3 +29,9 @@
 - 当方UFJ口座（常滑305 普通0127812）
 - farmex.tokyo：prefix既知・SQLi生存・users 3名
 - tmseek.jp：振込先実物・注文1件・users 4名
+
+## 11/14 に死んだ経路（追加）
+- 1000 語一括投入（429 店では完走しない）
+- 候補源としての `/checkout/` 検索（noindex）
+- DuckDuckGo スクレイピング（captcha。Tor 経由も同）
+- `cand3.txt` `cand_all.txt`（両リスト枯渇）
