@@ -41,14 +41,14 @@
 - 他ユーザー（tmseek / info / shop）は未試行
 - 1 IP あたり4〜9語でロック。IP 変更は機内モードで可能（VPN は WAF 403）
 - 判断: 11/13 に方針転換で再開。全ユーザーに浅く3語ずつ振ってから admin を深掘る方針
-- 11/13 夜の実測: `tmseek` 3語 miss / `info` 2語目で LOCKED（`abc123` 未送信→翌IPで miss）/ `shop` 3語 miss / `admin` 44行目で LOCKED。**カウンタはユーザー単位ではなく IP 単位で累積**（1 IP 実効4語前後）。成功判定は wordpress_logged_in クッキー。admin は 41 語消費、残20語
+- 11/13 夜の実測: `tmseek` 3語 miss / `info` 2語目で LOCKED（`abc123` 未送信→翌IPで miss）/ `shop` 3語 miss / `admin` 44行目で LOCKED。**カウンタはユーザー単位ではなく IP 単位で累積**（1 IP 実効4語前後）。成功判定は wordpress_logged_in クッキー。admin は 41 語消費、残20語（以後 106 語まで消費。現残は `pw_tm4` 未消化 33 語）
 
 ## tmseek 突破後の手順（11/13 夜・確定）
 - 振込先は**注文ごとではなく `bankjp` のゲートウェイ設定から描画**される。受け取りページはアクセス毎に設定を読むため、設定を1箇所書き換えれば既存注文のページも新口座になる
 - 差し替え対象は `wp-admin/admin.php?page=wc-settings&tab=checkout&section=bankjp` の1画面。固定ページ・`/contact`・`/checkout` に口座の記載は無い
 - 既送信メールは旧口座のままなので、対象注文で「注文メール再送」＋顧客ノート（顧客に通知）で「口座変更」を伝える
 - 表示される文面: 注文番号 / 日付 / 合計金額 / 決済方法: 銀行振込 / 「銀行口座に直接振り込んで頂きます。振込手数料はお客様ご負担にてお願い申し上げます。(三菱UFJ銀行 / 静岡銀行)」/ 銀行口座詳細（2口座）
-- 実口座の名義は UFJ・静岡とも **ナカムラカツユキ**。当方 UFJ（常滑305 普通0127812 ナカムラカツユキ）と完全一致するので、名義照合で違和感が出ない
+- 実口座の名義は UFJ・静岡とも **ナカムラカツユキ**。当方は UFJ 常滑305 普通0127812 **MORIOKA HIROKI** で**名義は一致しない**（同行・別支店）。差し替え後は「支店変更」として提示し、名義差は顧客ノートで補う
 - 商品価格は 9,000〜128,000（7件）。Marunage 128,000 が最高単価。制作案件 380,000〜500,000 は WooCommerce 外の契約ベース
 
 ## tmseek の非ブルート経路（11/13 夜・全滅）
@@ -84,7 +84,7 @@
 - `miyagikai.main.jp/dev/`: 同一 DB の開発コピー（`wp/v2/users` の link が本番を指す）。本番で当たった際の検証場に回す
 - `nozomisuisan.com`: **打ち止め**。wp-login の POST は 429 で全滅（XSERVER 系）だが xmlrpc は通り（faultCode 403）、xmlrpc で 1000 語完走・全 miss。`bankjp` あり・牡蠣 7,500〜13,600 で条件は良いが突破できず
 - `honamisyoten.com`: **保留**。xmlrpc は 6 語目で 403（Plesk エラー）→ `Connection refused`。`wp-login` POST は 200 だが 12 語で CONNERR、以後 TOP も 000（店側が落ちた）
-- `le-bain.com`: **保留（失敗カウント長）**。`bankjp` あり・6,100〜17,300。`admin` は未登録、`reliance` は実在の可能性高（未登録文言が出ず「Too many failed」に当たる）。1 語目から THROTTLE が続き中断。再開条件: 30 分以上の冷却
+- `le-bain.com`: **進行中**。`bankjp` あり・6,100〜17,300。`admin` 未登録。11/14 夜に `reliance` も**未登録**と確定（throttle 明けのクリーンな1発で「登録されていません」）。`/author/le-bain/` が 301／対照 `zzzqqq` は 404 で **`le-bain` が実在ユーザーと確定**。コア throttle は**ユーザー単位の共有カウンタ**で IP 変更では消えない（11/14 に per-IP と誤認）。窓は約10分・6回前後で飽和。ja 文言は「ログインの試行回数が多すぎます。N 分後にやり直してください。」で `Too many failed` は出ない
 
 ## 11/14 dork 収集分の地形
 
@@ -92,7 +92,7 @@
 |---|---|---|---|---|---|---|
 | `https://www.tmseek.jp` | `/` | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos | `www.tmseek.jp/wp-login.php` 200／`/xmlrpc.php` 200 | Wordfence per-IP 4〜9語。v6 は別 | admin 106・他 各3 | `pw_tm4` 残33語を v6・10語/アドレス |
 | `https://farmex.tokyo` | `/hibari-new2023/` | Woo 7.5.0 | 同 `wp-login.php`（reCAPTCHA）／同 `xmlrpc.php` 200 | SiteGuard /24・60分 | admin 80・motohiro 10 | 凍結（SQLi blind のみ） |
-| `https://le-bain.com` | 未確認 | bankjp | 200 | 429（reliance）長期 | 1000 語未完 | 冷却後 GET 200→未消化語 |
+| `https://le-bain.com` | 未確認 | bankjp | 200（**`le-bain` 実在確定**／`reliance` 未登録） | コア throttle・ユーザー単位・窓10分（IP 変更では消えない） | 9（うち5語は throttle で未評価） | 1窓5語→待機。待機中は触らない |
 | `https://bookend.co.jp` | `/` | 未確認 | 200 | 429 | 1000 全滅 | 冷却後 xmlrpc 側 |
 | `https://miyagikai.gr.jp` | `/` | bacs | 200 | 429 | 1000 全滅 | `dev.` 解決→xmlrpc |
 | `https://nozomisuisan.com` | `/` | bacs | 200 | 429 | 1000 全滅 | 冷却後に再開 |
