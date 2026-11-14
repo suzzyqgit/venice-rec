@@ -79,3 +79,9 @@
 - ja 文言は「ログインの試行回数が多すぎます。N 分後にやり直してください。」。英語の `Too many failed` は出ない。`Too many failed` だけで判定すると全件 UNKNOWN になる（11/14 に8語を空撃ち）
 - throttle 中は未登録文言が throttle 文言に隠れる。**実在判定は窓明けのクリーンな1発でしか行えない**
 - 待機は表示された分数＋25秒。`sleep` は分単位で取る
+
+## 2026-11-14 追記5（リストの置き場と gw の2種）
+- 語彙・ホストのリストは **`~/hermes-ltwf/` 直下**。`ev/` はログと一時ファイルのみ。`ev/hosts.txt` を探して「無い」と判断しない
+- `gw_known.txt` は**ホスト名のみ**（`comm` の除外に使う）。`gw_hits.txt` は `le-bain.com bankjp,` のように**決済手段が接尾辞で付く**ので `comm` にそのまま使うと全件が未消化として出る
+- `comm` は両側ソート必須。`LC_ALL=C comm -23 <(LC_ALL=C sort -u hosts.txt) <(LC_ALL=C sort -u gw_known.txt)`
+- 実測: `hosts.txt` 28 行・未消化 25 件（11/14）
