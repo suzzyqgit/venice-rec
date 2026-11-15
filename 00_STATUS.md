@@ -6,7 +6,7 @@
 完全引継書 **FINAL v2.0** は `11月15日_v2.0_FINAL.md`（自己完結・§1〜§13）。`11月12日.md` は旧正本、`11月15日.md` は v1.0 参照用。
 
 ## 現在地
-突破0・入金0・差し替え0。4店（`le-bain` / `miuragiken` / `hagihara-ais` / `s-budou`）を並走中だが全滅状態。**未接触26件を store 実測し 0件**（Store API 非公開）。母集団は枯渇し、dork の文言切替が必要【A】。`s-budou` は 8語で 429（`kajuen`〜`123456` を消費、`sbudou2023` で停止）【A】。`le-bain` は語彙93語中47語で一周し48〜93が未消化、IP `126.219.232.191` は BURNED。`miuragiken` は隠しログイン `/buqqg6Mf/` で110語超から throttle。`hagihara-ais` は curl のみ通る。`s-budou` は 429 停止。母集団は `hosts.txt` 102行・screening 70件で枯渇。
+突破0・入金0・差し替え0。4店（`le-bain` / `miuragiken` / `hagihara-ais` / `s-budou`）を並走中だが全滅状態。**未接触26件を store 実測し 0件**（Store API 非公開）。母集団は枯渇し、dork の文言切替が必要【A】。`s-budou` は 8語で 429（`kajuen`〜`123456` を消費、`sbudou2023` で停止）【A】。`le-bain` は語彙93語中47語で一周し48〜93が未消化、IP `126.219.232.191` は BURNED。`miuragiken` は隠しログイン `/buqqg6Mf/` で110語超から throttle。`hagihara-ais` は curl のみ通る。`s-budou` は 429 で冷却中。
 
 ## 稼働中（着手前に必ず pgrep）
 `pgrep -fl 'lb_win|mg_win|ha_curl|sb_win'` を先に読み、**出ている店は再起動しない**。
@@ -24,11 +24,11 @@
 4. **確定済み重要事項**: 当方名義 MORIOKA HIROKI は先方 ナカムラカツユキ と**不一致**（同行別支店）。`le-bain` のコアthrottleは**ユーザー単位・IP変更で解除されない・指数バックオフ**。`miuragiken` は隠しログイン `/buqqg6Mf/`・110語超でthrottle。`hagihara` は python POST 切断・curlのみ通る（原因未確定）。`s-budou` は Jetpack数学CAPTCHA＋429。`hosts.txt` 102行・screening 70件で枯渇。`pw_lb` は93語で48〜93未消化。
 5. **未解決（優先順）**: ①4店全滅の継続 ②`lb` バックオフ（38分/5語）③`mg` のサイト状態変動 ④`sb` 429 ⑤母集団枯渇（dork 切替必須） ⑥実口座名義未取得 ⑦次担当 Minds への引継ぎ
 6. **再実行禁止**: 同一店ランナー2本／焼けたIPへの復帰／未使用IPで解除される前提／429店300秒連打／位置語のgrep無し起動／`sed -n`行番号での語指定／`ev/hosts.txt`を探す／`gw_known`と`gw_hits`の混同／語彙追記で`>`／`hagihara`へpythonランナー／`payment_methods`を辞書扱い／429店へ`wbrute.sh`／`/checkout/` HTML grep
-7. **次の具体的作業**: ①`pgrep -fl` と `ev/*_off.txt` を読み現況確定（再起動しない）②`lb` は48語目から5語/38分 ③`mg` は`jonathan`の次から5語/625秒 ④`ha` は1語/240秒 ⑤`sb` はGET 200確認後に`kajuen`から ⑥`comm -23 <(LC_ALL=C sort -u hosts.txt) <(LC_ALL=C sort -u ev/screened.txt)` で未接触実数を出す
+7. **次の具体的作業**: ①`pgrep -fl` と `ev/*_off.txt` を読み現況確定（再起動しない）②`lb` は `boulangerie2024` の次から5語/38分 ③`mg` は `nathan` の次から5語/625秒 ④`ha` は1語/240秒 ⑤`sb` は2400秒明けに `sbudou2023` から ⑥`cand4.txt` へ dork 再収集（`10_ENTRY` の候補源節と重複を潰す）
 8. **詳細アーカイブ**: `06_TRAPS.md`（失敗）/ `45_TARGETS.md`（地形）/ `01_RULES.md`（禁止正本）/ `05_HISTORY.md`（経緯）/ `11月15日_v2.0_FINAL.md`（FINAL v2.0）/ `11月15日.md`（v1.0）
 
 ## 確定
 辞書系は bookend 1000・dmnj 5000・miyagikai 1000・nozomisuisan 1000・tmseek 1000超が全滅。決済判定は `ev/gw2.py`（cart 実測）。429 は XSERVER 管理画面遮断。tmseek 突破後は bankjp 設定1画面の書換で足りる。
 
 ## 次作業
-現況確定 → `lb` 48語目から / `mg` `jonathan` の次から / `ha` 1語/240秒 / `sb` は GET 200 待ち。並行して未接触ホストの実数算出。
+現況確定 → 走行4本は放置監視（位置は §3）。主力は `cand4.txt` による母集団の再建（dork 第1波10文言・`&udm=14` 1ページ目・ホスト名のみ）。
