@@ -42,3 +42,10 @@
 - `miuragiken` が 111 語目から `rem` 復活・114 語目で `QUOTA_LOW`。throttle は「無い」のではなく一定数で発動と判明
 - 記録 push 11 回（最終 `9f10f4d`）。v1.0 を vault 記録。Mind 乾燥運行 2 回。00_STATUS に稼働中欄を追加
 - 引継書 FINAL v2.0 を作成し `11月15日_v2.0_FINAL.md` として保存。`11月12日.md` を旧正本へ格下げ
+
+## 11/15 深夜〜11/16 未明（追加）
+- tmseek は v4 専用（AAAA 無し）と判明。以後 v4 一本、IP 判定は api4
+- `pw_lb.txt` と `ev/pw_lb.txt` の二重管理が原因で lb が 47→1 に折り返していた。`cp` で同期し 48 語目 `lebain2026` から再開
+- 母集団枯渇を受け、`wp-sitemap` のスラッグからサイト固有語彙 `pw_tm6.txt`（132語）を生成
+- Webshare 無料枠は datacenter 全滅（403）。Rotating Residential $3.50/月を契約（1ヶ月で解約予定）。サブユーザー＋日本指定で WAF 通過・POST 200 を実測
+- `tm6b.sh`（IP 待ち内蔵・プロキシ時は短絡）を作成。`pw_tm5` 完走後 `pw_tm6` を流す
