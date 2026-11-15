@@ -8,6 +8,17 @@
 ## 正本
 完全引継書 v2.0 は `11月12日.md`（§0〜§13＋出力B/C/D＋引き継ぎ行）。`11月14日.md` は改訂ソース、`11月14日_v1.0.md` は退避。
 
+## 稼働中（着手前に必ず pgrep）
+
+`pgrep -fl 'lb_win|mg_win|ha_curl|sb_win'` を先に読み、**出ている店は再起動しない**。
+
+- `lb_win` … `le-bain`（位置 `ev/lb_off.txt`）
+- `mg_win` … `miuragiken`（`ev/mg_off.txt`。第3引数=入口パス、第4引数=語彙。**語彙は位置と同じ系列で渡す**）
+- `ha_curl` … `hagihara-ais`（`ev/ha_off.txt`）
+- `sb_win` … `s-budou`（429 中は停止。明けてから）
+
+位置の語が語彙ファイルに無いと `START_NOT_FOUND` で空回りする。起動前に `grep -n -x -F <語> <リスト>` で確認する。
+
 ## 未解決（優先順）
 0. 母集団の枯渇（25 件消化済。採用は `miuragiken` のみ）
 1. `miuragiken.com` の継続（`dd8rv5by` 実在・残数表示あり・`bankjp` 605,000 円）
