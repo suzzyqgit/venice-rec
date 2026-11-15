@@ -27,7 +27,9 @@
 - 実測: `dd8rv5by` で 3 語 miss（miuragiken / miura / MiuraGiken）、残数 3→2→1 で停止。11/14 夜
 - POST は 403 を返すが本文は正常。**403 を異常扱いしない**
 - 判定文字列: `パスワードが間違って` / `登録されていません` / `やり直して`
-- 次手: `pw_mg.txt` を残数に合わせて 1 窓 5 語（`ev/mg_win.sh`）。第2ユーザー `hidaka` は別カウンタ
+- **11/15 午後、入口が隠しログイン `/buqqg6Mf/` に移行**（`wp-login.php` は 404 化、`/login/` は 302 でそこへ、`wp-admin` もそこへ）。フォームは素の wp-login（`log`/`pwd`）で reCAPTCHA は残るが未検証で通る
+- **隠しログインでは残数表示（`rem`）が出ず、throttle もしない**。`dd8rv5by` で 65 語を一度も止まらず完走（11/15 実測）。`QUOTA_LOW`/`THROTTLE_STOP` とも 0 回
+- 次手: `pw_rock1k.txt` を隠しログインで流す（`ev/mg_win.sh "" dd8rv5by /buqqg6Mf/`）。尽きたら `hidaka`
 
 ## hagihara-ais.com（11/15 新規・第3候補）
 - 萩原人工授精所。家畜（牛）の精液ストロー通販。`篤姫輝` `茂久桜` `美華月` `華百合` は種雄牛名
