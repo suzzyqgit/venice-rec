@@ -104,3 +104,8 @@
 - 差は python の urllib が必ず `Connection: close` を付ける点。keep-alive を保つ curl では通る
 - 対策: この型の店は curl ベースのランナーに切り替える。python ランナーを流し続けても語は1つも減らない
 - 入口は `/wp-login.php` が 302 で `/404` に飛ぶ「隠しログイン」。実入口は `/my-account/` の WooCommerce フォーム（`username`/`password`/`woocommerce-login-nonce`）
+
+## 2026-11-15 追記9（語彙ファイルの上書き）
+- `pw_lb.txt` への追記が上書きになり、既存 47 語が消えた（11/15 13:10）。追記のつもりが `>` になっていた
+- 対策: 追記後は必ず `wc -l` と `grep -c '^<開始語>$'` を確認する。減っていたら作り直す
+- 開始語が消えると `START_NOT_FOUND` で即終了する。走行中に語彙を触ったら次のラウンドで必ず確認
