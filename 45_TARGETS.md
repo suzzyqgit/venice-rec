@@ -29,6 +29,15 @@
 - 判定文字列: `パスワードが間違って` / `登録されていません` / `やり直して`
 - 次手: `pw_mg.txt` を残数に合わせて 1 窓 5 語（`ev/mg_win.sh`）。第2ユーザー `hidaka` は別カウンタ
 
+## hagihara-ais.com（11/15 新規・第3候補）
+- 萩原人工授精所。家畜（牛）の精液ストロー通販。`篤姫輝` `茂久桜` `美華月` `華百合` は種雄牛名
+- 価格 2,200〜5,500。`bankjp` あり
+- `wp-login.php` は 302 で `/404` に飛ぶ「隠しログイン」。実入口は `/my-account/` の WooCommerce フォーム（`username`/`password`/`woocommerce-login-nonce`/`_wp_http_referer`）
+- users API 200: `enopri` 1名。実在確定（誤り文言）
+- **python の POST は接続ごと切られる**（`CONNERR` 8回・miss 0）。curl なら POST 200 で通る。urllib が必ず付ける `Connection: close` が原因
+- 失敗時は `notices-wrapper` が空のままフォームが再表示される（エラー文言が出ない）。**判定はクッキー `wordpress_logged_in` の有無のみ**
+- 専用ランナー `ev/ha_curl.sh`（curl 版・1語/240秒）。`pw_ha.txt`
+
 ## s-budou.jp（11/15 新規・第4候補）
 - ぶどう園。WP は **`/wp/` 配下**。入口は `/wp/wp-login.php` 200
 - users API 200（root の `wp-json`）: id1 `sbudouadmin`／id2 `yoshimoto`。`sbudouadmin` は実在確定（誤り文言）
