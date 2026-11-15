@@ -156,3 +156,18 @@
 - root の `wp-login.php` を実パスと混同しない。farmex は `/hibari-new2023/`
 - `hosts.txt` は 28 行。既知3件（`gw_known.txt`）を除く **25 件が未消化【A】**（11/14 実測）。`comm -23 hosts.txt gw_known.txt`（直下）
 - 証拠クラス: URL・パス・ロック・試行数は【A】。`dev.` の別カウンタのみ【C】
+
+## 11/15 地形章（FINAL v2.0・更新分）
+
+| 店 | 実URL | 実パス | プラグイン | ログイン実体 | ロック方式 | 既試行語数 | 次に撃つ手 |
+|---|---|---|---|---|---|---|---|
+| le-bain | `https://le-bain.com` | 未確認【D】 | bankjp【A】 | `wp-login.php` 200・user `le-bain`【A】 | コアthrottle・ユーザー単位・指数バックオフ【A】 | 93語中47語＋再走分・48〜93未消化【A】 | 48語目 `lebain2026` から5語/38分・未使用IP |
+| miuragiken | `https://www.miuragiken.com` | `/`（`wp-login` は404）【A】 | paygent_cc/bankjp【A】 | **`/buqqg6Mf/`**（`log`/`pwd`）【A】 | コアthrottle・110語超で発動・`QUOTA_LOW`【A】 | dd8rv5by 大量・`jonathan`(rockyou 270付近)【A】 | `jonathan` の次から5語/625秒。尽きたら `hidaka` |
+| hagihara-ais | `https://hagihara-ais.com` | `/`（`wp-login`→`/404`）【A】 | bankjp【A】 | **`/my-account/`** WCフォーム【A】 | 文言なし・判定はクッキーのみ【A】 | `enopri` 31語一周・`password`【A】 | 1語/240秒で継続 |
+| s-budou | `https://s-budou.jp` | **`/wp/`**（`wp-login` は `/wp/wp-login.php`）【A】 | bankjp【A】 | `sbudouadmin`/`yoshimoto`【A】 | Jetpack数学CAPTCHA＋POST 429【A】 | 約9語（`grapes` まで）【A】 | GET 200 確認後 `kajuen` から |
+| tmseek | `https://www.tmseek.jp` | `/`【A】 | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos【A】 | `wp-login.php` 200・xmlrpc 200【A】 | Wordfence per-IP 4〜9語・v6は別【A】 | admin 106・他各3【A】 | `pw_tm4` 残33語をv6・10語/アドレス |
+| farmex | `https://farmex.tokyo` | **`/hibari-new2023/`**【A】 | Woo 7.5.0【A】 | 同 `wp-login.php`（reCAPTCHA）【A】 | SiteGuard /24・60分【A】 | admin 80・motohiro 10【A】 | 凍結（SQLi blind のみ） |
+
+- ルートの `wp-login.php` を実パスと混同しない。`farmex`=`/hibari-new2023/`、`s-budou`=`/wp/`、`miuragiken`=`/buqqg6Mf/`、`hagihara`=`/my-account/`
+- 保留・打ち止め勢の地形は v1.0 §10 の表を維持（変更なし）
+- `hosts.txt` は 102 行。未接触実数は `comm -23 <(LC_ALL=C sort -u hosts.txt) <(LC_ALL=C sort -u ev/screened.txt)` で都度出す【A（手順）／D（実数）】

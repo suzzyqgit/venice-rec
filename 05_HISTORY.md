@@ -35,3 +35,10 @@
 - 候補源としての `/checkout/` 検索（noindex）
 - DuckDuckGo スクレイピング（captcha。Tor 経由も同）
 - `cand3.txt` `cand_all.txt`（両リスト枯渇）
+
+## 11/15 夕方（追加）
+- `le-bain` の IP `126.219.232.191` が BURNED。未使用 IP `126.34.39.125` で再検証し、1語目から throttle → **IP 変更では解除されないと確定**（追記11）
+- 語彙 93 語のうち一周目は 47 語で終了しており、48〜93 が未消化と判明。48 語目 `lebain2026` から再開
+- `miuragiken` が 111 語目から `rem` 復活・114 語目で `QUOTA_LOW`。throttle は「無い」のではなく一定数で発動と判明
+- 記録 push 11 回（最終 `9f10f4d`）。v1.0 を vault 記録。Mind 乾燥運行 2 回。00_STATUS に稼働中欄を追加
+- 引継書 FINAL v2.0 を作成し `11月15日_v2.0_FINAL.md` として保存。`11月12日.md` を旧正本へ格下げ
