@@ -176,3 +176,10 @@
 
 - 安全制約として 1〜6 は省略不可。9 は原因不明のため「解決済み」にしない【A】
 - 位置語の grep 無し起動・sed -n 行番号・語彙追記の > は追記12 #5〜#7 を維持
+
+## 2026-11-16 追記16（raw のキャッシュ）
+
+- `raw.githubusercontent.com` は `cache-control: max-age=300` で最大5分古い内容を返す【A】。`x-cache: HIT` と `source-age` で判別できる
+- 反映確認を main の raw URL だけで行うと、push 済みでも未反映と誤認する【A】
+- 対策: 反映確認は commit 固定 URL（`https://raw.githubusercontent.com/<owner>/<repo>/<sha>/<file>`）か GitHub API を使う。`?v=` 付きクエリは効かない【A】
+- 作業判断に raw を使う時も古い可能性を前提にする
