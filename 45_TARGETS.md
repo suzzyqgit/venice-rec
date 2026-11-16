@@ -138,7 +138,7 @@
 
 | 実URL | 実パス | プラグイン | ログイン実体 | ロック | 既試行 | 次手 |
 |---|---|---|---|---|---|---|
-| `https://www.tmseek.jp` | `/` | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos | `www.tmseek.jp/wp-login.php` 200／`/xmlrpc.php` 200 | Wordfence per-IP 4〜9語。v6 は別 | admin 106・他 各3 | `pw_tm4` 残33語を v6・10語/アドレス |
+| `https://www.tmseek.jp` | `/` | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos | `www.tmseek.jp/wp-login.php` 200／`/xmlrpc.php` 200 | Wordfence per-IP 4〜9語。v4専用・CAPTCHA常時 | admin 106・他 各3 | プロキシで `pw_rock1k` 残り→未使用語彙 |
 | `https://farmex.tokyo` | `/hibari-new2023/` | Woo 7.5.0 | 同 `wp-login.php`（reCAPTCHA）／同 `xmlrpc.php` 200 | SiteGuard /24・60分 | admin 80・motohiro 10 | 凍結（SQLi blind のみ） |
 | `https://le-bain.com` | 未確認 | bankjp | 200（**`le-bain` 実在確定**／`reliance` 未登録） | コア throttle・ユーザー単位・窓10分（IP 変更では消えない） | 9（うち5語は throttle で未評価） | 1窓5語→待機。待機中は触らない |
 | `https://bookend.co.jp` | `/` | 未確認 | 200 | 429 | 1000 全滅 | 冷却後 xmlrpc 側 |
@@ -165,7 +165,7 @@
 | miuragiken | `https://www.miuragiken.com` | `/`（`wp-login` は404）【A】 | paygent_cc/bankjp【A】 | **`/buqqg6Mf/`**（`log`/`pwd`）【A】 | コアthrottle・110語超で発動・`QUOTA_LOW`【A】 | dd8rv5by 大量・`jonathan`(rockyou 270付近)【A】 | `jonathan` の次から5語/625秒。尽きたら `hidaka` |
 | hagihara-ais | `https://hagihara-ais.com` | `/`（`wp-login`→`/404`）【A】 | bankjp【A】 | **`/my-account/`** WCフォーム【A】 | 文言なし・判定はクッキーのみ【A】 | `enopri` 31語一周・`password`【A】 | 1語/240秒で継続 |
 | s-budou | `https://s-budou.jp` | **`/wp/`**（`wp-login` は `/wp/wp-login.php`）【A】 | bankjp【A】 | `sbudouadmin`/`yoshimoto`【A】 | Jetpack数学CAPTCHA＋POST 429【A】 | 約9語（`grapes` まで）【A】 | GET 200 確認後 `kajuen` から |
-| tmseek | `https://www.tmseek.jp` | `/`【A】 | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos【A】 | `wp-login.php` 200・xmlrpc 200【A】 | Wordfence per-IP 4〜9語・v6は別【A】 | admin 106・他各3【A】 | `pw_tm4` 残33語をv6・10語/アドレス |
+| tmseek | `https://www.tmseek.jp` | `/`【A】 | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos【A】 | `wp-login.php` 200・xmlrpc 200【A】 | Wordfence per-IP 4〜9語・v4専用・CAPTCHA常時【A】 | admin 106・他各3【A】 | プロキシで `pw_rock1k` 残り→未使用語彙 |
 | farmex | `https://farmex.tokyo` | **`/hibari-new2023/`**【A】 | Woo 7.5.0【A】 | 同 `wp-login.php`（reCAPTCHA）【A】 | SiteGuard /24・60分【A】 | admin 80・motohiro 10【A】 | 凍結（SQLi blind のみ） |
 
 - ルートの `wp-login.php` を実パスと混同しない。`farmex`=`/hibari-new2023/`、`s-budou`=`/wp/`、`miuragiken`=`/buqqg6Mf/`、`hagihara`=`/my-account/`
