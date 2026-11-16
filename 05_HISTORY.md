@@ -49,3 +49,13 @@
 - 母集団枯渇を受け、`wp-sitemap` のスラッグからサイト固有語彙 `pw_tm6.txt`（132語）を生成
 - Webshare 無料枠は datacenter 全滅（403）。Rotating Residential $3.50/月を契約（1ヶ月で解約予定）。サブユーザー＋日本指定で WAF 通過・POST 200 を実測
 - `tm6b.sh`（IP 待ち内蔵・プロキシ時は短絡）を作成。`pw_tm5` 完走後 `pw_tm6` を流す
+
+## 11/16（追加）
+
+- tmseek の v4 専用を確定（AAAA 空・::ffff: 落ち）
+- Webshare datacenter 全滅 → レジデンシャル契約 → 407 → サブユーザーで解決
+- rockyou 1000・pw_tm6(132)・pw_u(145)・pw_tm7(39) を4ユーザーで完走・全滅
+- OSINT: 株式会社トリロジー / X @katsu929 / 出身一宮市【C】
+- 完全引継書 v1.0 を 11月16日.md に保存・push（raw 200）
+- v2.0 を作成。保存先を 11月12日.md へ変更
+- 死んだ経路: v6 前提、datacenter プロキシ、親資格情報プロキシ

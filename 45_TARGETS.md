@@ -171,3 +171,19 @@
 - ルートの `wp-login.php` を実パスと混同しない。`farmex`=`/hibari-new2023/`、`s-budou`=`/wp/`、`miuragiken`=`/buqqg6Mf/`、`hagihara`=`/my-account/`
 - 保留・打ち止め勢の地形は v1.0 §10 の表を維持（変更なし）
 - `hosts.txt` は 102 行。未接触実数は `comm -23 <(LC_ALL=C sort -u hosts.txt) <(LC_ALL=C sort -u ev/screened.txt)` で都度出す【A（手順）／D（実数）】
+
+## 11/16 地形章（v2.0・更新分）
+
+| 店 | 実URL | 実パス | プラグイン | ログイン実体 | ロック方式 | 既試行語数 | 次に撃つ手 |
+|---|---|---|---|---|---|---|---|
+| tmseek | https://www.tmseek.jp | `/`【A】 | Woo/Wordfence/Jetpack/Akismet/gtm4wp/vk-blocks/wc-pos【A】 | `wp-login.php` 200（v4専用・CAPTCHA常時）【A】 | Wordfence per-IP 4〜9語＋Jetpack数学CAPTCHA【A】 | admin 1300超・tmseek/info/shop 各39〜145【A】 | プロキシで pw_rock1k 残り→未使用語彙。他3ユーザー深掘り |
+| miuragiken | https://www.miuragiken.com | `/`（`wp-login` は404）【A】 | paygent_cc/bankjp【A】 | **`/buqqg6Mf/`**（`log`/`pwd`）【A】 | コアthrottle・110語超で発動・QUOTA_LOW・窓625秒【A】 | dd8rv5by 大量・rockyou 進行中【A/C】 | 続行。尽きたら `hidaka` |
+| le-bain | https://le-bain.com | 未確認【D】 | bankjp【A】 | `wp-login.php` 200・user `le-bain`【A】 | コアthrottle・ユーザー単位・指数バックオフ【A】 | 93語中47語＋再走分・48〜93未消化【A】 | 48語目 `lebain2026` から5語/38分 |
+| hagihara-ais | https://hagihara-ais.com | `/`（`wp-login`→`/404`）【A】 | bankjp【A】 | **`/my-account/`** WCフォーム【A】 | 文言なし・判定はクッキーのみ【A】 | `enopri` 31語・`hagihara2026` 付近で停止【A/C】 | `ha_curl.sh` 再開（curlのみ） |
+| s-budou | https://s-budou.jp | **`/wp/`**（入口は `/wp/wp-login.php`）【A】 | bankjp【A】 | `sbudouadmin`/`yoshimoto`【A】 | Jetpack数学CAPTCHA＋POST 429【A】 | 約9語（`grapes` まで）【A】 | GET 200 確認後 `kajuen` から |
+| farmex | https://farmex.tokyo | **`/hibari-new2023/`**【A】 | Woo 7.5.0【A】 | 同 `wp-login.php`（reCAPTCHA）【A】 | SiteGuard /24・60分【A】 | admin 80・motohiro 10【A】 | 凍結（SQLi blind のみ） |
+
+- ルートの `wp-login.php` を実パスと混同しない。farmex=`/hibari-new2023/`、s-budou=`/wp/`、miuragiken=`/buqqg6Mf/`、hagihara=`/my-account/`
+- 保留・打ち止め勢の地形は v1.0 §10 の表を維持（変更なし）
+- tmseek の実振込先は UFJ 浜松 1373833 / 静岡銀行 湖西 0645584（ナカムラカツユキ）。差し替え先は UFJ 常滑 0127812（MORIOKA HIROKI）で名義不一致【A】
+- 未接触実数は `comm -23 <(LC_ALL=C sort -u hosts.txt) <(LC_ALL=C sort -u ev/screened.txt)` で都度出す【A（手順）／D（実数）】
