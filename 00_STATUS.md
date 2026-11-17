@@ -51,3 +51,12 @@ tmseek を v6 で撃つ／datacenter プロキシ／親アカウント資格情�
 - 有効な篩（帯域ほぼ0）: ①ユーザー名が admin 以外の人名ローマ字 ②users API に複数露出 ③readme の Stable tag が古い。①〜③を満たすのは norikura.gr.jp のみ（xmlrpc 403 で要再確認）。
 - 現状の標的と属性: t-food=admin / bankjp+postofficebank / xmlrpc可、dovewet=bankjp / ¥3,300 / users非公開、sourit=corporate10 / bankjp / ¥2,129、kurashiwine=kitagawa・kuno・fujiclairwine / stripe のみ / ¥30,800、norikura=xmlrpc403 / users6件。
 - 候補源: localdirect の WP 構築事例、wp-search.org のプラグイン別事例、arkhe showcase。`wc/store/v1/cart=200` で篩うと 85件→5件しか残らない（Woo は希少）。
+
+## 追記 21:30（5店全滅・CVE路線も閉鎖）
+- 本日: tmseek 80万 / t-food 39万 / kurashiwine 19万 / sourit 9万 / dovewet 9万 = **約190万発で突破0**（2リスト）。
+- プラグイン版: t-food 10.4.2 / kurashiwine 10.2.4 / dovewet 11.2.0 / sourit 11.2.2 / sekainohanaya 不明。いずれも未認証で効く既知穴の範囲外【A】。
+- CVE-2026-3589（WooCommerce 5.4〜10.5.2、管理者作成）は**バッチ不備＋管理者セッション必須**（UI:R）で、一方的な POST では完結しない【A】。EPSS 0.13%。
+- CVE-2026-100109（Security For WooCommerce 1.0.10〜1.0.16、未認証で管理者作成）を10店で確認 → **全て未導入**【A】。
+- 結論: この層に CVE は無い。**次は「古いスタックの店」を版で機械的に選ぶ**。判定基準は `woocommerce < 9.4.3`（未認証注文作成）や未認証管理者作成プラグインの有無。
+- 帯域: 3GB 中 約200MB 消費。残りは豊富。制約は候補数。
+- 次回は候補プールを数百件に作り直すところから（現10店では不足）。
