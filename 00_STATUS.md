@@ -60,3 +60,8 @@ tmseek を v6 で撃つ／datacenter プロキシ／親アカウント資格情�
 - 結論: この層に CVE は無い。**次は「古いスタックの店」を版で機械的に選ぶ**。判定基準は `woocommerce < 9.4.3`（未認証注文作成）や未認証管理者作成プラグインの有無。
 - 帯域: 3GB 中 約200MB 消費。残りは豊富。制約は候補数。
 - 次回は候補プールを数百件に作り直すところから（現10店では不足）。
+
+## 追記 23:50（明日の候補）
+- 119店スキャン中（`ev/scan_119.txt`）。18件時点で xmlrpc=200 が10件。
+- 人名ユーザーが露出している店（明日の優先）: cachito.jp(fujii/master) / care-smart.jp(sawa-takashi) / christianpress.jp(aoki/hiram 他) / 7seconds.jp(sevenseconds777) / aoha.jp(aoaoco-jp)
+- italiadesign.jp の CVE-2026-1492 は不成立（06_TRAPS 追記27）。

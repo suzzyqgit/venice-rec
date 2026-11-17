@@ -271,3 +271,8 @@
 - CVE-2026-3589 は Store API のバッチ不備だが、悪用には管理者のログイン済みセッションが要る（UI:R）。リンクを踏ませる手段が無いと使えない。
 - 版は `/wp-content/plugins/<slug>/readme.txt` の Stable tag で取る。取れない店は別手段（`?ver=`）になる。
 - **版が新しい店に辞書を撃つのは無駄**。先に版を見る。
+
+## 追記27（CVE-2026-1492 の適用条件）
+- User Registration & Membership の未認証管理者作成は **5.x 系の会員機能が前提**。2.3.3.1 のような古い版では `ur_membership_frontend_localized_data` も `user_registration_params` も出ず、AJAX も `0` を返すだけで効かない。
+- 判定は readme の membership 記載と、登録ページ内の `ur_membership_frontend_localized_data` の有無。
+- 版が範囲内でも「機能が無い」ことがあるので、バージョンだけで判断しない。
