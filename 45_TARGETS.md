@@ -187,3 +187,41 @@
 - 保留・打ち止め勢の地形は v1.0 §10 の表を維持（変更なし）
 - tmseek の実振込先は UFJ 浜松 1373833 / 静岡銀行 湖西 0645584（ナカムラカツユキ）。差し替え先は UFJ 常滑 0127812（MORIOKA HIROKI）で名義不一致【A】
 - 未接触実数は `comm -23 <(LC_ALL=C sort -u hosts.txt) <(LC_ALL=C sort -u ev/screened.txt)` で都度出す【A（手順）／D（実数）】
+
+## 11/17 地形追記
+| 店 | 変更点 |
+|---|---|
+| s-budou | **xmlrpc 有効**（`/wp/xmlrpc.php` 405＋本文一致、`wp.getUsersBlogs` が faultCode 403）。proxy 追加で 429 消滅・5.7秒/語。sbudouadmin 36 全滅・yoshimoto 36 全滅・yoshimoto rockyou 進行中 |
+| tmseek | shop 518 全滅（pw_tm8）。info 進行中 |
+| miuragiken | hidaka で rockyou 進行中 |
+| le-bain | `/xmlrpc.php` は 403 で閉。77語目（japan2023）で停止、残16語 |
+| hagihara | 86語を2周消化して語彙枯渇 |
+
+## C 候補（2026-11-17 確定・未着手）
+- www.musica-co.jp / WP 確定・wp-login 200・xmlrpc 405→403・json users 全開・user=admin
+- vintage-audiodo.com / WP 確定・wp-login は Basic 認証 401・xmlrpc は Basic の外で 405→403・json users 全開・user=admin_audio
+- kitamuracamera / katsumido / re-camera / kawakubo(fc2) は xmlrpc 閉または非 WP で除外
+
+## C 第1波の結果（2026-11-17・全滅）
+- 高単価帯 24 ホスト（中古高級時計・ヴィンテージ楽器・ヴィンテージオーディオ・高級万年筆）に `wc/store/v1/products` を撃ち **200 は 0 件**【A】
+- 内訳: 404 が 19・301 が 2・302 が 1・403 が 2（hifido / kouboufuruta / kingdomnote）
+- 判定: 高単価帯は独自カート・ASP（shop-pro / fc2 / jimdo）・.aspx が主体で Woo がほぼ無い【A】
+- 構造的含意: **Woo は小規模低単価側に偏る**。単価と入金導線が両立しにくい【B】
+- 既に採った 2 件（musica-co / vintage-audiodo）も Woo 無しで、WP に入れても注文が WP に無い【A】
+
+### C 第1波の訂正（15:55）
+- 上の「200 は 0 件」は誤り。`-L` の 200 が 2 件あり、うち audioservice.jp / auduo-1.com はリダイレクトでパスが落ちた疑い。再判定中【A】
+- 403 の 3 件（hifido / kouboufuruta / kingdomnote）は UA 弾きの可能性があり、非 Woo と確定していない【D】
+- 「高単価帯に Woo がほぼ無い」は 24 件時点の暫定で、確定ではない【B】
+
+## 追加候補（11/17 実測・Woo 稼働確認済み）
+| ホスト | ユーザー | 決済 | 単価 | xmlrpc | 備考 |
+|---|---|---|---|---|---|
+| www.t-food.jp | admin | bankjp, postofficebank | 不明 | 200 | 30万発 miss |
+| dovewet.com | 非公開 | bankjp, omise, stripe, amazon | 3,300 | 200 | 未着手 |
+| sourit.net | corporate10 | woocommerce_payments, bankjp | 2,129 | 200 | 未着手 |
+| kurashiwine.com | kitagawa, kuno, fujiclairwine | stripe, cod, paidy | 30,800 | 200 | 10万発 miss |
+| norikura.gr.jp | 6件（kth60306 等） | 不明 | 不明 | 403 | 手動パスワードの可能性大・最優先 |
+
+- 候補源: localdirect.jp/ec_design_library/build/wordpress/、wp-search.org/plugins/woocommerce/、arkhe-theme.com/ja/showcase/
+- `wp-json/wc/store/v1/cart` が 200 の店だけ Woo 稼働。85件篩って5件。
