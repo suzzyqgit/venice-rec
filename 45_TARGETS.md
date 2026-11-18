@@ -249,3 +249,18 @@
 - 302ホストのプールと119ホストのスキャン結果は未文書化。ファイル名も未記録【C】
 - dovewet / sourit は本表で「9万発」と記載したが、旧 追加候補表では「未着手」のまま。両論併記【A】
 - 次工程: 候補のうち bankjp 可否を `ev/gw.sh` で篩い、振込ありのみ攻撃順に並べる。篩う前の投入は禁止【D（順序）】
+## 未検証候補（旧 00_STATUS 追記23:50 由来・生ログ未突合）
+旧 00_STATUS を出力Bで上書きした際、候補名の参照線が切れたためここへ移設する。**全件 C クラス**。`ev/scan_119.txt` の該当行と突合するまで【A】にしない。
+
+| ホスト | 露出ユーザー名 | 根拠 | 状態 |
+|---|---|---|---|
+| cachito.jp | fujii / master | 旧 00_STATUS 追記23:50「人名ユーザーが露出している店（明日の優先）」【C】 | 未突合 |
+| care-smart.jp | sawa-takashi | 同上【C】 | 未突合 |
+| christianpress.jp | aoki / hiram 他 | 同上【C】 | 未突合 |
+| 7seconds.jp | sevenseconds777 | 同上【C】 | 未突合 |
+| aoha.jp | aoaoco-jp | 同上【C】 | 未突合 |
+
+- 119ホストの xmlrpc/users スキャンは「18件時点で xmlrpc=200 が10件」まで旧 00_STATUS に記録がある【C】。**完走分の集計は未文書化**。
+- 生ログの所在は `ev/scan_119.txt` と推定しているが、実在は未確認【D】。
+- 突合手順: `grep -n -E 'cachito|care-smart|christianpress|7seconds|aoha' ev/scan_119.txt` で行を引き、xmlrpc と users の実測値を確認して本表を【A】へ書き換える。
+- 301 のホストは `-L` で最終 URL を見る。`www` 無しは 301 になる（06_TRAPS 11/14）。
