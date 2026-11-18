@@ -273,8 +273,8 @@
 | cachito.jp | 4,929 | ppcp-card-button-gateway, ppcp-gateway | なし | PayPal のみ |
 | care-smart.jp | 880 | woocommerce_payments, amazon_payments_advanced | なし | カード＋Amazon のみ |
 | yamasawa-sekkotsuin.jp | 35,000 | stripe | なし | カードのみ |
-| michikofujiwara.jp | 取得不可 | 未測 | 不明 / products 200 だが商品 id 無し・本文: [] |
-| urokodesign.jp | 12300 | ["stripe_cc","stripe_applepay","stripe_googlepay","bankjp"] | あり  |
+| michikofujiwara.jp | 取得不可 | 未測 | 不明 | products 200 だが商品 id 無し・本文 [] |
+| urokodesign.jp | 12,300 | stripe_cc / stripe_applepay / stripe_googlepay / bankjp | あり | **採用候補** |
 
 - 旧記録の「優先5店」のうち cachito / care-smart は振込なし。人名ユーザーの露出だけでは不足【A】
 - **振込の有無は users 露出より上位の篩**【A（2件の反例）】
