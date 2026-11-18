@@ -115,5 +115,5 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - 302ホストプール全体への無差別投入（bankjp 可否を `ev/gw.sh` で篩う前に撃たない）【D（順序の妥当性）】
 - C 第1波の WooCommerce UI 文言 dork（枯死）【A】
 - `hosts.txt` への新規1000サイト撒き2回目以降【A】
-- 06_TRAPS 追記17 を重複追記【A】
+- 06_TRAPS 追記17 を重複追記【A】／追記27 も採番衝突で追記29 へ改番済【A】
 - 既知3店（bookend / miyagikai / nozomisuisan）の再 probe【A】
