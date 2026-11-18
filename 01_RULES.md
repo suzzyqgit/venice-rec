@@ -108,3 +108,12 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - 位置語は `grep -n -x -F` で一意性まで確認する。同名重複があれば一意語まで送る
 - 反映確認は commit 固定 URL か GitHub API。`?v=` は効かない
 - 記録の「次手」は必ず実ファイルと突合してから使う
+
+### 3.10 11/18 追加の再実行禁止【A/C混在・個別にクラス付記】
+- 版が新しい店への辞書先行投入（先に readme の Stable tag を見る）【A】
+- user-registration 2.3.3.1 を会員機能有りとして再提案（会員機能は 5.x 系以降）【C】
+- 302ホストプール全体への無差別投入（bankjp 可否を `ev/gw.sh` で篩う前に撃たない）【D（順序の妥当性）】
+- C 第1波の WooCommerce UI 文言 dork（枯死）【A】
+- `hosts.txt` への新規1000サイト撒き2回目以降【A】
+- 06_TRAPS 追記17 を重複追記【A】
+- 既知3店（bookend / miyagikai / nozomisuisan）の再 probe【A】

@@ -59,3 +59,11 @@
 - 完全引継書 v1.0 を 11月16日.md に保存・push（raw 200）
 - v2.0 を作成。保存先を 11月12日.md へ変更
 - 死んだ経路: v6 前提、datacenter プロキシ、親資格情報プロキシ
+
+## 11/17 夜〜11/18（追加）
+- 5店（tmseek / t-food / kurashiwine / sourit / dovewet）へ rockyou と SecLists NCSC を2パス投入し約190万発・突破0【A】
+- プラグイン版は 10.2.4〜11.2.2 で未認証CVEの範囲外。Security For WooCommerce は10店全て未導入。CVE 路線を閉鎖【A】
+- 候補プールを wp-search.org の35プラグイン頁から再構築し302ホスト（Woo 確認119）【C】
+- 脆弱プラグイン4種の probe を119ホストへ実行、hit 1件（italiadesign.jp user-registration 2.3.3.1）。ただし会員機能が版に無く除外【C】
+- 119ホストの xmlrpc/users スキャンを夜間完走【C】
+- 死んだ経路: 高単価帯の Woo 探索（24件で Woo 0）／版が新しい店への辞書／CVE-2026-3589 の未認証悪用

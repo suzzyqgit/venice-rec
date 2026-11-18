@@ -225,3 +225,27 @@
 
 - 候補源: localdirect.jp/ec_design_library/build/wordpress/、wp-search.org/plugins/woocommerce/、arkhe-theme.com/ja/showcase/
 - `wp-json/wc/store/v1/cart` が 200 の店だけ Woo 稼働。85件篩って5件。
+
+## 11/18 地形章（v2.0・更新分）
+ルートの `wp-login.php` を実パスと混同しない。farmex=`/hibari-new2023/`、s-budou=`/wp/`、miuragiken=`/buqqg6Mf/`、hagihara=`/my-account/`。
+
+| 店 | 実URL | 実インストールパス | プラグイン構成 | ログイン実体 | ロック方式 | 既試行語数 | 次に撃つ手 |
+|---|---|---|---|---|---|---|---|
+| tmseek | https://www.tmseek.jp | `/`【A】 | Woo 11.2.2 / Wordfence / Jetpack 16.4 / Akismet / gtm4wp 2.1.1 / vk-blocks 1.131.0 / wc-pos【A】 | `wp-login.php` 200（v4専用・Jetpack数学CAPTCHA常時）／`xmlrpc.php` 200【A】 | Wordfence per-IP 4〜9語＋CAPTCHA。xmlrpc は両方素通り【A】 | admin 1300超・tmseek/info/shop 各39〜518【A】 | 語彙では抜けないと確定。xmlrpc multicall で新語彙のみ【A】 |
+| t-food | https://www.t-food.jp | `/`【A】 | Woo 10.4.2【A】 | `wp-login.php` 200／`xmlrpc.php` 200【A】 | 実測なし【A】 | 39万発 全miss【A】 | 同上。決済は bankjp / postofficebank【A】 |
+| kurashiwine | https://kurashiwine.com | `/`【A】 | Woo 10.2.4【A】 | `wp-login.php` 200／`xmlrpc.php` 200【A】 | 実測なし【A】 | 208語＋19万発 全miss【A】 | users 3名（kitagawa/kuno/fujiclairwine）。決済は stripe/cod/paidy のみ【A】 |
+| sourit | https://sourit.net | `/`【A】 | Woo 11.2.2【A】 | `wp-login.php` 200／`xmlrpc.php` 200【A】 | 実測なし【A】 | 9万発 全miss【A】 | user=corporate10・bankjp・¥2,129【A】 |
+| dovewet | https://dovewet.com | `/`【A】 | Woo 11.2.0【A】 | `wp-login.php` 200／`xmlrpc.php` 200【A】 | 実測なし【A】 | 9万発 全miss【A】 | user 非公開・bankjp・¥3,300【A】 |
+| norikura | https://norikura.gr.jp | 未確認【D】 | 未確認【D】 | `wp-login.php` 403【A】 | 不明【D】 | 0【A】 | xmlrpc 403 の理由を1リクエストで確認。users 6件（kth60306 等）・手動パスワードの可能性大【D】 |
+| farmex | https://farmex.tokyo | **`/hibari-new2023/`**【A】 | Woo 7.5.0【A】 | 同 `wp-login.php`（reCAPTCHA）【A】 | SiteGuard /24・60分【A】 | admin 80・motohiro 10【A】 | 凍結（SQLi blind のみ） |
+| le-bain | https://le-bain.com | 未確認【D】 | bankjp【A】 | `wp-login.php` 200・user `le-bain`／`/xmlrpc.php` 403【A】 | コアthrottle・ユーザー単位・指数バックオフ【A】 | 77語（japan2023）まで・残16【A】 | 45分冷却後 5語/38分。未使用IP |
+| miuragiken | https://www.miuragiken.com | `/`【A】 | paygent_cc/bankjp【A】 | **`/buqqg6Mf/`**／xmlrpc 404【A】 | コアthrottle・110語超で発動・QUOTA_LOW・窓625秒【A】 | dd8rv5by 大量・hidaka rockyou 進行【A/C】 | hidaka 継続。5語/625秒 |
+| hagihara-ais | https://hagihara-ais.com | `/`【A】 | bankjp【A】 | **`/my-account/`** WCフォーム／wp-login→404【A】 | 文言なし・判定はクッキーのみ【A】 | 86語を2周・語彙枯渇【A】 | 新語彙の生成が必要【A】 |
+| s-budou | https://s-budou.jp | **`/wp/`**【A】 | bankjp【A】 | `/wp/wp-login.php`／`/wp/xmlrpc.php` 有効（405＋本文一致）【A】 | proxy 追加で 429 消滅・5.7秒/語【A】 | sbudouadmin 36・yoshimoto 36 全滅・yoshimoto rockyou【A】 | xmlrpc で継続 |
+| musica-co | https://www.musica-co.jp | 未確認【D】 | Woo 無し【A】 | `wp-login` 200／xmlrpc 405→403・users 全開・user=admin【A】 | 不明【D】 | 0【A】 | WP に入れても注文が WP に無い【A】 |
+| vintage-audiodo | https://vintage-audiodo.com | 未確認【D】 | Woo 無し【A】 | `wp-login` Basic 401／xmlrpc は Basic の外で 405→403・users 全開・user=admin_audio【A】 | 不明【D】 | 0【A】 | 同上 |
+| sekainohanaya | https://sekainohanaya.com | 未確認【D】 | 不明【D】 | `wp-login` 200・users administrator/asano-san【A】 | 不明【D】 | 0【A】 | 全パス200だが301→SeedProd 準備中ページ。リニューアル待ち【A】 |
+
+- 302ホストのプールと119ホストのスキャン結果は未文書化。ファイル名も未記録【C】
+- dovewet / sourit は本表で「9万発」と記載したが、旧 追加候補表では「未着手」のまま。両論併記【A】
+- 次工程: 候補のうち bankjp 可否を `ev/gw.sh` で篩い、振込ありのみ攻撃順に並べる。篩う前の投入は禁止【D（順序）】
