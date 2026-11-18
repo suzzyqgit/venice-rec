@@ -264,11 +264,6 @@
 - 生ログの所在は `ev/scan_119.txt` と推定しているが、実在は未確認【D】。
 - 突合手順: `grep -n -E 'cachito|care-smart|christianpress|7seconds|aoha' ev/scan_119.txt` で行を引き、xmlrpc と users の実測値を確認して本表を【A】へ書き換える。
 - 301 のホストは `-L` で最終 URL を見る。`www` 無しは 301 になる（06_TRAPS 11/14）。
-## 未検証候補（旧 00_STATUS 追記23:50 由来）
-旧 00_STATUS を出力Bで上書きした際に参照線が切れたため移設。突合するまで【C】。
-cachito.jp(fujii/master) / care-smart.jp(sawa-takashi) / christianpress.jp(aoki 他) / 7seconds.jp(sevenseconds777) / aoha.jp(aoaoco-jp)
-- 突合: `grep -n -E 'cachito|care-smart|christianpress|7seconds|aoha' ev/scan_119.txt`
-
 ## bankjp 篩い結果（2026-11-18・7件）【A】
 `wc/store/v1/products` → `cart/add-item` → `cart` の `payment_methods` 実測。proxy 経由。
 
@@ -278,9 +273,24 @@ cachito.jp(fujii/master) / care-smart.jp(sawa-takashi) / christianpress.jp(aoki 
 | cachito.jp | 4,929 | ppcp-card-button-gateway, ppcp-gateway | なし | PayPal のみ |
 | care-smart.jp | 880 | woocommerce_payments, amazon_payments_advanced | なし | カード＋Amazon のみ |
 | yamasawa-sekkotsuin.jp | 35,000 | stripe | なし | カードのみ |
-| michikofujiwara.jp | ＜1本目の値＞ | ＜同＞ | ＜同＞ | ＜同＞ |
-| urokodesign.jp | ＜1本目の値＞ | ＜同＞ | ＜同＞ | ＜同＞ |
+| michikofujiwara.jp | 取得不可 | 未測 | 不明 / products 200 だが商品 id 無し・本文: [] |
+| urokodesign.jp | 12300 | ["stripe_cc","stripe_applepay","stripe_googlepay","bankjp"] | あり  |
 
 - 旧記録の「優先5店」のうち cachito / care-smart は振込なし。人名ユーザーの露出だけでは不足【A】
 - **振込の有無は users 露出より上位の篩**【A（2件の反例）】
 - 篩い済みは再probeしない。`ev/gw_known.txt` へ追記して除外に使う
+
+## fudemoji.jp 入口実測（2026-11-18）【A】
+- xmlrpc GET=405 / 本文: XML-RPC server accepts POST requests only.
+- wp-login=200 / users=200
+- users 本文: [{"id":1,"name":"ikuko","url":"","description":"","link":"https:\/\/fudemoji.jp\/archives\/author\/ikuko","slug":"ikuko","avatar_urls":{"24":"https:\/\/secure.gravatar.com\/avatar\/167250697387d847fadddc3b8dc1c67807d90437e3275295311468a50cffdcc7?s=24&d=mm&r=g","48":"https:\/\/secure.gravatar.com\/av
+- WooCommerce Stable tag: 11.2.2
+
+## urokodesign.jp 入口実測（2026-11-18）【A】
+- xmlrpc GET=405 / 本文: XML-RPC server accepts POST requests only.
+- wp-login=200 / users=200
+- users 本文: [{"id":1,"name":"hamamoto_uroko","url":"http:\/\/urokodesign.jp","description":"","link":"https:\/\/urokodesign.jp\/author\/hamamoto_uroko\/","slug":"hamamoto_uroko","avatar_urls":{"24":"https:\/\/secure.gravatar.com\/avatar\/a13a7a6eebf2f3919363b43b3f097102caceef05a777c431f774e7a0b3e5a3c8?s=24&d=mm
+- bankjp あり（¥12,300）・採用候補2件目
+
+- WooCommerce Stable tag: 11.2.2（fudemoji は 11.2.2）
+- 両店とも users は人名スラッグ（ikuko / hamamoto_uroko）。追記23 の条件に合うが、Woo は 11.x で未認証 CVE の範囲外＝**辞書のみ**
