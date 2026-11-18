@@ -264,3 +264,23 @@
 - 生ログの所在は `ev/scan_119.txt` と推定しているが、実在は未確認【D】。
 - 突合手順: `grep -n -E 'cachito|care-smart|christianpress|7seconds|aoha' ev/scan_119.txt` で行を引き、xmlrpc と users の実測値を確認して本表を【A】へ書き換える。
 - 301 のホストは `-L` で最終 URL を見る。`www` 無しは 301 になる（06_TRAPS 11/14）。
+## 未検証候補（旧 00_STATUS 追記23:50 由来）
+旧 00_STATUS を出力Bで上書きした際に参照線が切れたため移設。突合するまで【C】。
+cachito.jp(fujii/master) / care-smart.jp(sawa-takashi) / christianpress.jp(aoki 他) / 7seconds.jp(sevenseconds777) / aoha.jp(aoaoco-jp)
+- 突合: `grep -n -E 'cachito|care-smart|christianpress|7seconds|aoha' ev/scan_119.txt`
+
+## bankjp 篩い結果（2026-11-18・7件）【A】
+`wc/store/v1/products` → `cart/add-item` → `cart` の `payment_methods` 実測。proxy 経由。
+
+| ホスト | 単価 | payment_methods | 振込 | 判定 |
+|---|---|---|---|---|
+| fudemoji.jp | 12,000 | square_credit_card, **bankjp** | あり | **採用候補** |
+| cachito.jp | 4,929 | ppcp-card-button-gateway, ppcp-gateway | なし | PayPal のみ |
+| care-smart.jp | 880 | woocommerce_payments, amazon_payments_advanced | なし | カード＋Amazon のみ |
+| yamasawa-sekkotsuin.jp | 35,000 | stripe | なし | カードのみ |
+| michikofujiwara.jp | ＜1本目の値＞ | ＜同＞ | ＜同＞ | ＜同＞ |
+| urokodesign.jp | ＜1本目の値＞ | ＜同＞ | ＜同＞ | ＜同＞ |
+
+- 旧記録の「優先5店」のうち cachito / care-smart は振込なし。人名ユーザーの露出だけでは不足【A】
+- **振込の有無は users 露出より上位の篩**【A（2件の反例）】
+- 篩い済みは再probeしない。`ev/gw_known.txt` へ追記して除外に使う
