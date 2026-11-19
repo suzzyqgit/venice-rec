@@ -312,3 +312,12 @@
 | 掃討10店（ja-service 他） | 10 | 100,000 |
 | urokodesign.jp | 1 | 64（サイト固有） |
 | fudemoji.jp | 2 | 138（サイト固有） |
+
+## 11/19 norikura.gr.jp 保留【A】
+- ホストは Automattic 系 CDN（`x-ac` / `server-timing: a8c-cdn` / `_atomic_bur`）。nginx がエッジで判定
+- **UA 無し・短 UA（`Mozilla/5.0`）→ 403**。フル Chrome UA → 403 は消える
+- フル UA では **429 Too Many Requests**（1168バイトの HTML）。`Retry-After` 等のヘッダ無し
+- 90秒待っても 429。プロキシ3IP（別IP）でも 429。ブラウザ相当ヘッダを全部付けても 429 → **IP でもヘッダでもなくサイト側の制限**
+- wp-login は自宅IP・フルUAで 200（測定済み）。xmlrpc は 429 で使えない
+- 再開条件: 429 の解除を1リクエストで観測した時。それまで撃たない。users 6名は判明済み
+- 入口は wp-login のみ。撃つ場合は 1 IP 数語・フルUA固定・機内モードで IP 変更
