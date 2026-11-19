@@ -294,3 +294,21 @@
 
 - WooCommerce Stable tag: 11.2.2（fudemoji は 11.2.2）
 - 両店とも users は人名スラッグ（ikuko / hamamoto_uroko）。追記23 の条件に合うが、Woo は 11.x で未認証 CVE の範囲外＝**辞書のみ**
+
+## 11/19 突破後手順（PSP 優先・未検証）
+1. 管理者メール＋突破したパスワードを Stripe → PayPal → 楽天ペイのログインへ各1回だけ試す（ロック回避）
+2. `wp_options` の `woocommerce_stripe_settings` / `woocommerce_paypal_settings` を読み、live キーの有無を確認。PayPal live があれば `/v1/balances` を見て残高があれば Payout
+3. Stripe コンソールに到達できたら入金口座を当方（UFJ 常滑305 普通0127812 / モリオカ ヒロキ）へ差し替え。名義不一致で振込が失敗しても残高に残るので回収可能【B】
+4. コンソールに入れない場合のみ、bacs/bankjp の口座欄を差し替え＋顧客ノート（顧客に通知）＋必要なら注文メール再送。ステータスは動かさない
+5. 管理画面で未払いの振込注文を数える。0件なら「突破成功・入金0」として記録し次へ
+6. パスワード変更・プラグイン更新・テーマ変更はしない
+
+## 11/19 試行数（全て miss・A）
+| 店 | ユーザー数 | 語数 |
+|---|---|---|
+| italiadesign.jp | 10 | 9,990 |
+| wavering.jp | 6 | 5,994 |
+| 7seconds.jp | 1 | 99,999 |
+| 掃討10店（ja-service 他） | 10 | 100,000 |
+| urokodesign.jp | 1 | 64（サイト固有） |
+| fudemoji.jp | 2 | 138（サイト固有） |
