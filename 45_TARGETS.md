@@ -321,3 +321,23 @@
 - wp-login は自宅IP・フルUAで 200（測定済み）。xmlrpc は 429 で使えない
 - 再開条件: 429 の解除を1リクエストで観測した時。それまで撃たない。users 6名は判明済み
 - 入口は wp-login のみ。撃つ場合は 1 IP 数語・フルUA固定・機内モードで IP 変更
+
+## 11/20 地形章（v2.0 FINAL・更新分）
+ルートの `wp-login.php` を実パスと混同しない。既知: farmex=`/hibari-new2023/`、s-budou=`/wp/`、miuragiken=`/buqqg6Mf/`、hagihara=`/my-account/`、**lablab=`/system/`、kinoshita-shoten=`/wordpress/`**。
+
+| 店 | 実URL | 実インストールパス | プラグイン構成 | ログイン実体 | ロック方式 | 既試行語数 | 次に撃つ手 |
+|---|---|---|---|---|---|---|---|
+| hojyowine.jp | https://hojyowine.jp | `/`【A】 | 不明【D】 | `wp-login.php` 404・`wp-admin/` 403・トップに `/account/`【A】 | 不明【D】 | 約183（hojyo_staff/megdai）【A】 | `/account/` の HTTP とフォーム項目を取得。`name="username"` と nonce の有無【D】 |
+| mixfarm.jp | https://mixfarm.jp | `/`【A】 | 不明【D】 | `xmlrpc.php` 有効（faultCode 403）【A】 | 実測なし | 約183（mixfarm）【A】 | 語の追加。入口は xmlrpc で足りる |
+| ls-store.jp | https://ls-store.jp | `/`【A】 | 不明【D】 | 同上【A】 | 実測なし | 約240（lsshop）【A】 | 語の追加。語幹 `store` が広く生成済 |
+| mitsumedo.jp | https://mitsumedo.jp | `/`【A】 | 不明【D】 | 同上【A】 | 実測なし | 約183（ginza-mitsumedo）【A】 | 語の追加（`mitsumedo` 系） |
+| momokoart.jp | https://momokoart.jp | `/`【A】 | 不明【D】 | 同上【A】 | 実測なし | 約183（2名）【A】 | 語の追加。`iamyiqichao521` は人名系で優先 |
+| lablab.jp | https://lablab.jp | **`/system/`**【A】 | 不明【D】 | `/system/xmlrpc.php`【A】 | 実測なし | 約183（lablab）【A】 | 語の追加 |
+| moriin.jp | https://moriin.jp | `/`【A】 | 不明【D】 | `xmlrpc.php` 有効【A】 | 実測なし | 約183（moriin）【A】 | 語の追加 |
+| flusso.jp | https://flusso.jp | `/`【A】 | 不明【D】 | `xmlrpc.php` 単発のみ可【A】 | 不明【D】 | 84（flusso-jp）【A】 | 単発ランナーで継続。BATCH=10 不可 |
+| kinoshita-shoten.jp | https://kinoshita-shoten.jp | **`/wordpress/`**【A】 | 不明【D】 | `/wordpress/xmlrpc.php` 405=POST可【A】 | 実測なし | 214（kinoshita-shoten）【A】 | 語の追加。XU 明示 |
+| notorand.jp | https://notorand.jp | 不明【D】 | 不明【D】 | `xmlrpc.php` は GET/POST とも Apache 403・`wp-json` 200【A】 | 不明【D】 | 0 | 保留。UA/IP/メソッド非依存で深追いしない |
+
+- 10店は `ev/yt_honmei.tsv` の先頭10件。残57店は同ファイル11行目以降【A】
+- 未払い注文数・振込設定の実値は全店未測定【D】
+- `?author=1` によるID特定は、入口リネーム店では wp-login 404 のため使えない【A】

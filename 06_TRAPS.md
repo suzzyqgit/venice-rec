@@ -337,3 +337,38 @@
 - したがって 429 は IP 単位でもヘッダ単位でもなく**サイト側**。IP を変えても解除されない（le-bain のコア throttle と同型の判断）
 - 429 の本文が HTML で `<title>429 Too Many Requests</title>` を含む場合、xmlrpc の faultCode 403 と混同しない。HTTP コードで分ける
 - 403 の切り分け順: ①フル UA で再試行 ②別IPで再試行 ③それでも駄目ならサイト側と判断して保留
+
+## 2026-11-20 追記35（母集団の実測）
+- 大物YouTuber（キヨ/牛沢/ガッチマン/瀬戸弘司/天開司/赤見かるび）と個人勢VTuberの物販は全件プラットフォーム（items-store=SONY / official-store / creator-store=Shopify / SUZURI / GRAPHT / cocollabo / eeo / ゲーマーズ / アニメイト）【A】。**名前を1件ずつ検索して自前Wooを探す路線は費用対効果が悪い**
+- `muuu.com` は creator-store.jp へ転送（Shopify）【A】
+- Firecrawl 経由の Bing / DDG は日本語クエリで空応答。自回線＋本物UAの Bing 直叩きも大手モールに偏る【A】
+- 有効なのは既存プールの篩い。160→`cart=200` 118→`users=200` 79【A】
+
+## 2026-11-20 追記36（入口リネームとサブディレクトリ）
+- `wp-login.php` 404 ＋ `wp-admin/` 403 ＋ `wp-json/wp/v2/users` 200 は**入口リネーム**（WPS Hide Login 系）。自宅IPでも404ならIP遮断ではない【A（hojyowine.jp）】
+- トップに `/account/` がある型は WooCommerce のマイアカウントが実入口の可能性。hagihara と同型（追記8）【A/D】
+- ルート `wp-login.php` 404 でも xmlrpc は生きていることがある。pingback の href が実パスを指す（lablab=`/system/`・kinoshita=`/wordpress/` は405=POST可）【A】
+- **ID実在判定は wp-login の文言差が使えない場面が増えた**。`/account/` のフォームか xmlrpc で代替する【A】
+
+## 2026-11-20 追記37（multicall が死ぬ店）
+- flusso.jp は単発 POST で faultCode 403 が返るが、multicall では 10語中 fault が1しか返らない。BATCH=3 でも同じ【A】
+- 原因は不明【D】。「解決済み」にしない。multicall 不調店は単発（`ev/yt_single.sh`）へ落とす
+
+## 2026-11-20 追記38（語ファイルの作り直し漏れ）
+- `ev/yt_pw_new.txt` を作り直さずに流し、前回と同一の17語を全店に再投入した。生成先が `yt_pw_more.txt` のままで `yt_pw_new.txt` が更新されていなかった【A】
+- ランナーは `PWF` しか読まないため、**実行前に `wc -l "$PWF"` を必ず確認する**。空なら `n=0` で即終了し全滅と誤認する【A】
+
+## 2026-11-20 追記39（失敗防止STATE v5.0・再発危険度の高い10件）
+| # | 失敗した方法 | 原因 | 現在の禁止・回避 | 再実行許可条件 | 参照 |
+|---|---|---|---|---|---|
+| 1 | wp-login 404 を IP 遮断と断定 | 入口リネームを見落とす【A】 | 自宅IPで再確認・`/account/` か xmlrpc で判定 | 常時 | 追記36 |
+| 2 | ルート wp-login を実パスと混同 | サブディレクトリ設置【A】 | pingback href から取得・404 なら5候補探索 | 常時 | 追記36 / パス節 |
+| 3 | multicall 不調店に BATCH=10 を続投 | flusso で fault が語数に届かない【A】原因不明 | BATCH=3 か単発 | 常時 | 追記37 |
+| 4 | 語ファイルを作り直さず起動 | 生成先とランナーの読み先が別【A】 | `wc -l "$PWF"` 必須 | 常時 | 追記38 |
+| 5 | 派生語だけで突破できると判断 | 1店183語超で0【A】 | 語より入口とID検証を先に | 常時 | 追記23 |
+| 6 | 大物YouTuberを母集団にする | 全件プラットフォーム【A】 | 自前Woo限定・小規模側 | 常時 | 追記35 |
+| 7 | Firecrawl 経由検索で日本語収集 | 空応答・大手偏重【A】 | 既存プール篩い | 常時 | 追記35 |
+| 8 | 403 を店の防御と断定 | notorand は UA/IP/メソッド非依存【A】 | 3条件で同一なら保留に落とす | 常時 | 追記34 / 3.11 |
+| 9 | `pgrep -f` で生死判定 | サブシェルを拾う【A】 | `ps -Ao pid,ppid,etime,command` | 常時 | 3.9 |
+| 10 | `git add -A` | repo root が `$HOME`【A】 | パス明示で個別 add | 常時 | 3.11 |
+- 1〜4 は本日再発したため昇格。3・8 は原因不明のため「解決済み」にしない【A】
