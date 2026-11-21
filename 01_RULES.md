@@ -133,3 +133,56 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - 大物YouTuberを自前Woo母集団として再収集する
 - Firecrawl 経由の Bing/DDG で日本語クエリ収集を再試行する
 - 派生語のみで突破可能と判断する
+## 2026-11-21 追記
+- 1アカウント400発を上限、超えたら次アカウント・次店
+- 語投入前に __dummy__ で判定成立を確認する
+- 各ブロック先頭で pwd を確認する
+- 生成の各段に期待行数を明記し wc -l で検算する
+- 成功述語・通知クラスは店ごとに実測してから回す
+
+### 3.13 11/21 追加の再実行禁止【A】
+- faultCode の不在だけで xmlrpc 成功と判定する（WAF 403 HTML を成功と読む）
+- grep で nonce の属性順を仮定する（`name=` → `value=` の順で引く）
+- 503 を語の誤りと扱い語を進める（ロックであって語は消費されない）
+- プロキシで xmlrpc / wp-login の 403 が消えると想定する（遮断はパス単位）
+- `slug` / `?author=1` / `sitemap-users` をログイン名の代替にする
+- 匿名で `add_to_cart` を叩く（Set-Cookie が返らない）
+- 同一ファイルへ `>>` で語を追記する（`cmd > tmp; cat tmp >> file`）
+- `/my-account/` 系で `-L` を省く
+- 振込なし店に辞書を撃つ（篩い3条件を先に通す）
+- 派生語のみで突破可能と判断する
+- 解除条件: いずれも実測で反例が出た時のみ。06_TRAPS 追記40・41 と対
+
+## 引継書 §12〜§13 転記
+## §12 不足資料
+- `90_LOG.md`（404・実体なし。日次は `90_LOG/YYYY-MM-DD.md` を直接引く）
+- `90_LOG/2026-11-21.md`（本項で新規作成）
+- ログイン名の実取得（未検証）
+- 各店の未払い注文数・振込設定実値
+- 屋号付き口座の回答
+- 突破後の差し替え4箇所の実画面
+- 11/21 分の `ev/` 生ログ突合（クラス A の確定に必要）
+- 採番確定に必要な SHA 固定 raw（追記30 の罠。push 前に SHA で再確認）
+
+## §13 v1.0 からの差分と再実行禁止事項
+**追加**: 入口を `/account/` nonce 経路に確定 / 成功述語を methodResponse 判定へ / WAF 403 と認証失敗の分離 / 503 をロックとして語非消費と確定 / 遮断の粒度がパス単位と確定 / 特商法からの実名・メール・振込取得 / 3条件篩い / 目的を着金へ引き上げ手段を①〜④へ
+**訂正**: 「nonce 欠落は実装由来」→ 存在した（grep の属性順誤り）【A】 / 「xmlrpc の 403 は IP 遮断」→ パス単位で、プロキシでも不可【A】 / 「カート投入が nonce 取得に必要」→ 不要【A】 / 「slug はログイン名」→ 別物【A】
+**再実行禁止（新規）**
+- faultCode の不在だけで xmlrpc 成功と判定する（WAF 403 HTML を拾う）
+- grep で nonce の属性順を仮定する（`name=` → `value=` の順で引く）
+- 503 を語の誤りと扱い語を進める
+- プロキシで xmlrpc / wp-login の 403 が消えると想定する
+- `slug` / `?author=1` / `sitemap-users` をログイン名の代替にする
+- 同一ファイルへ `>>` で語を追記する（`cmd > tmp; cat tmp >> file`）
+- `/my-account/` 系で `-L` を省く
+- 振込なし店に辞書を撃つ
+- 派生語のみで突破可能と判断する
+
+---
+引き継ぎ行（固定）
+必須読込: https://raw.githubusercontent.com/suzzyqgit/venice-rec/main/00_STATUS.md
+禁止正本: https://raw.githubusercontent.com/suzzyqgit/venice-rec/main/01_RULES.md
+失敗履歴: https://raw.githubusercontent.com/suzzyqgit/venice-rec/main/06_TRAPS.md
+地形: https://raw.githubusercontent.com/suzzyqgit/venice-rec/main/45_TARGETS.md
+経緯: https://raw.githubusercontent.com/suzzyqgit/venice-rec/main/05_HISTORY.md
+新チャットでは B と B' を同時に読み込ませる。新手法の提案前に失敗履歴と照合させ、記録が足りなければ必要文書の提示を要求させる。
