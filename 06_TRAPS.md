@@ -479,3 +479,9 @@
 | 8 | 同一ファイルへ `>>` 追記 | 8.4GB に増殖【A】 | `cmd > tmp; cat tmp >> file` | 常時 | 追記40 |
 | 9 | 全件 NONCE? を失効と断定 | 通知クラス不一致【A】 | 3系統 OR＋`__dummy__` | 常時 | 追記40 |
 | 10 | 振込なし店に辞書 | 58→6、32→5 の篩いで判明【A】 | 篩い3条件を先に | 常時 | 追記40 |
+
+## 2026-11-21 追記46（記録リポジトリの root）
+- 記録 vault（`~/LocalWork/Owner-Knowledge/Venice 記録`）は**独立リポジトリ**（origin `suzzyqgit/venice-rec`）【A】
+- `$HOME` は別リポジトリ `suzzyqgit/hireflow`【A】。`cd ~` から `git add "LocalWork/.../00_STATUS.md"` しても入らない（ディレクトリごと `??`）【A】
+- 01_RULES 3.11 の「リポジトリのルートは `$HOME`」は作業側 repo の説明。**記録の add/commit/push は vault をカレントにして相対パス**【A】
+- 回避: `git rev-parse --show-toplevel` で root を毎回確認。`git add -A` 禁止は維持

@@ -186,3 +186,4 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 地形: https://raw.githubusercontent.com/suzzyqgit/venice-rec/main/45_TARGETS.md
 経緯: https://raw.githubusercontent.com/suzzyqgit/venice-rec/main/05_HISTORY.md
 新チャットでは B と B' を同時に読み込ませる。新手法の提案前に失敗履歴と照合させ、記録が足りなければ必要文書の提示を要求させる。
+- 11/21 追加: 記録の add/commit/push は vault（独立 repo）をカレントにして相対パスで行う。`$HOME` は `hireflow` で別 repo。3.11 の「root は `$HOME`」は作業側の話【A】
