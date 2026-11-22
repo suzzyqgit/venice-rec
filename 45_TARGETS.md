@@ -402,3 +402,25 @@
 - 11/21 追記17【A】: `rope-lab` と `info` は**実在確定**。文言は「ユーザー名 ○○ のパスワードが間違っています」。`admin` / `takeda` / `ropelab` / `ropeaccess` は未登録
 - 【A・訂正】判定文言は「パスワードが間違っています」。「パスワードが正しく」で grep すると実在を取り逃がす（追記16 の「エラー他」はこれ）
 - 【A】`rope-lab` は2名実在（id6 `rope-lab` 相当・`info`）。既試行語0。**①対象かつ高単価で、初めて条件が揃った店**
+
+## 11/22 地形章（v2.1・更新分）
+ルートの `wp-login.php` を実パスと混同しない。既知: farmex=`/hibari-new2023/`、s-budou=`/wp/`、miuragiken=`/buqqg6Mf/`、hagihara=`/my-account/`、lablab=`/system/`、kinoshita-shoten=`/wordpress/`、**rope-lab=`/account/`**。
+
+| 店 | 実URL | 実インストールパス | プラグイン構成 | ログイン実体 | ロック方式 | 既試行語数 | 次に撃つ手 |
+|---|---|---|---|---|---|---|---|
+| rope-lab | https://rope-lab.jp | `/`【A】 | Woo 11.2.1 / woocommerce-for-japan / events-manager / js_composer / contact-form-7 / google-sitemap-generator 4.1.25、テーマ total-child-lab【A】 | **`/account/`** WCフォーム（`username`/`password`/`woocommerce-login-nonce`/`login`）。`wp-login` 200 だが `name="log"` 0 件、`wp-admin` 302、xmlrpc 404【A】 | 実測なし（約2,850発で LOCK 0）【A】 | `rope-lab` 1,017 / `info` 10 / `4u` 952 / `customer@rope-lab.jp` 433 / `yamashita` 439【A】 | 10k を `rope-lab` で継続（`ev/rl_off15.txt`）。0 なら `info` に rockyou 999 → 辞書を閉じる |
+
+**rope-lab の確定情報**
+- bank=1・単価 15,000 / 61,380 / 97,317。①対象かつ高単価の唯一店【A】
+- users 2 名（id6 slug `1fc2959f…`=ロープアクセスラボ / id1 slug `da629b51…`=武田）。slug は 40 桁 hex でログイン名でも表示名の md5 でもない【A】
+- 実在識別子 5 本: `rope-lab` / `info` / `4u` / `customer@rope-lab.jp` / `yamashita`【A】
+- 未登録確定: `admin` `takeda` `ropelab` `ropeaccess` `ueda` `masato` `customer` `ishizawa` `ono` `hayato` `masahiro` `sachiko`【A】
+- staff-member 6 件（213 武田 隼人 / 223 石澤 将博 / 235 山下 雅史 / 215 上田 雅人 / 7353 小野 早智子 / 256 ロープアクセスラボ）【A】
+- 特商法（`/about/#a-commerce`、`/law/` は無い）: 4U合同会社 / 上田 雅人 / 〒352-0005 埼玉県新座市中野2-3-9 / 048-424-8442 / customer@rope-lab.jp【A】
+- 露出物全滅（`.env` `.git/HEAD` `wp-config.php.bak` `wp-config.php~` `debug.log` `readme.html` `wp-content/uploads/` 404、`wp-sitemap-users-1.xml` のみ 200）【A】
+- `/wp-json/` 200・`?rest_route=` 200・`/wp-content/plugins/woocommerce/` 404・readme は 5 プラグインとも 404【A】
+- 通知文言は経路差あり。判定は本文 2 番目の `<strong>` を送信値と照合【A】
+
+**次点（未着手）**
+- `polycaya.jp`: users id1 `polycaya_master` / id6 ハッシュ。`polycaya_user001` は `user001` 形式でログイン名の可能性【A/D】。xmlrpc 403・`/account/` 404。products は variable で単価未読【A】
+- `setouchirusk.jp`: users id1 `setouchirusk`=スタッフ。xmlrpc 405=POST可・`/account/` 404。単価 40 / 60 / 4,000【A】

@@ -32,3 +32,6 @@
     V="/Users/kaiware/LocalWork/Owner-Knowledge/Venice 記録"
     grep -nE '^#{1,3} ' "$V/11月12日.md"
     sed -n '120,180p' "$V/11月12日.md"
+
+## 日次ログ（直近）
+- `90_LOG/2026-11-22.md` … rope-lab の識別子拡張・rockyou/10k 投入
