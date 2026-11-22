@@ -424,3 +424,84 @@
 **次点（未着手）**
 - `polycaya.jp`: users id1 `polycaya_master` / id6 ハッシュ。`polycaya_user001` は `user001` 形式でログイン名の可能性【A/D】。xmlrpc 403・`/account/` 404。products は variable で単価未読【A】
 - `setouchirusk.jp`: users id1 `setouchirusk`=スタッフ。xmlrpc 405=POST可・`/account/` 404。単価 40 / 60 / 4,000【A】
+
+## payment_methods 全量実測（2026-11-22・PSP 篩い）【A】
+`ev/gw4.sh`（`cart/add-item` → `update-customer` → `cart` の `payment_methods` を全量出力）。proxy 経由・3秒間隔。
+
+| ホスト | CNT | payment_methods | 判定 |
+|---|---|---|---|
+| babilon.jp | 1 | stripe | 一次 |
+| cocosta.jp | 1 | square_credit_card, ppcp, bacs | 一次（PayPal） |
+| flusso.jp | 0 | stripe | 一次 |
+| lablab.jp | 1 | paymentfor-wc | 二次 |
+| moriin.jp | 1 | （空） | 落とし |
+| name-funding.jp | 1 | （空） | 落とし |
+| necocia.jp | 1 | stripe, amazon_payments_advanced, bankjp | 一次 |
+| os-glint.jp | 1 | jetpack_custom_gateway_2, bankjp, jetpack_custom_gateway_3, jetpack_custom_gateway_4, atstore, jetpack_custom_gateway, cod | 二次 |
+| polycaya.jp | 0 | square_credit_card | 二次 |
+| rhyact.jp | 0 | （空） | 落とし |
+| sakeproject.jp | 1 | cod, stripe, amazon_payments_advanced | 一次 |
+| sccij.jp | 0 | bankjp, cod, payjp | 二次 |
+| setouchirusk.jp | 0 | square_credit_card, paidy, bankjp | 二次 |
+| tabegorovege.jp | 1 | komoju_* 9種, bankjp, postofficebank | 二次 |
+| tailtree.jp | 1 | woocommerce_payments, bankjp, cod | 二次 |
+| walkstory.jp | 0 | bankjp | 落とし |
+| withers.jp | 1 | stripe, bankjp | 一次 |
+| carpet-wataso.jp | - | NOPROD | 保留 |
+| h-mebuki.jp | - | NOPROD | 保留 |
+| name-funding.jp | - | ERR（初回） | 再測済 |
+
+- **`payment_methods` は文字列の配列**（`["stripe"]`）。オブジェクト配列ではない。`"id":"..."` で引くと全件空になる【A】
+- `gw2.sh` はこの誤りで 17店を EMPTY と誤判定した【A】
+- 一次対象は Stripe または ppcp(PayPal) がある6店のみ【A】
+- CNT=0 でも payment_methods は返る（add-item 不成立でも判定可）【A】
+
+## withers.jp 会社概要（2026-11-22）【A】
+- 会社名: 株式会社 岐流（きりゅう）
+- 代表取締役社長: 鈴木 辰（Shin Suzuki）
+- 所在地: 〒505-0041 岐阜県美濃加茂市太田町2689-30 1F
+- メール: info@withers.jp / TEL 070-7666-5198
+- Stripe アカウントの存在をパスキー通知で確認済【A】
+- 語順: `shinsuzuki` → `suzuki2026` → `kiryu2026`（人名 → 人名＋年 → 社名＋年）
+- `withers2026` / `withers2025` は miss（`withers2025` はレート制限中のため未評価の可能性あり）
+
+## polycaya.jp 会社概要（2026-11-22）【A】
+- 〒125-0002 東京都葛飾区西亀有4-14-11 / TEL 0475-58-3429
+- 設立 2022年3月1日 / 代表取締役 櫻田 和朗 / 資本金100万
+- 取引先銀行: 千葉銀行・ドコモSMTBネット銀行 / 事業: 住宅資材販売（アルミサッシ等）
+- 決済は square_credit_card のみ。**Square のアカウントが対象**【A】
+- 語順: `sakurada` → `sakurada2026` → `kazuo2026`
+
+## 11/22 地形章（引継書 v1.0・PSP 実測と試行）
+ルートとサブディレクトリを取り違えない。既知: farmex=`/hibari-new2023/`、s-budou=`/wp/`、miuragiken=`/buqqg6Mf/`、hagihara=`/my-account/`、lablab=`/system/`、kinoshita-shoten=`/wordpress/`、rope-lab=`/account/`。
+
+| ホスト | 状態 | PM 実測 | PSP試行 | 備考 |
+|---|---|---|---|---|
+| babilon.jp | 一次・NO-GO | stripe | 1語 miss | mail info@ |
+| cocosta.jp | 一次・NO-GO | square,ppcp,bacs | 1語 miss | PayPal |
+| flusso.jp | 一次・NO-GO | stripe | 1語 miss | CNT=0 |
+| necocia.jp | 一次・NO-GO | stripe,amazon,bankjp | 1語 miss | — |
+| sakeproject.jp | 一次・NO-GO | cod,stripe,amazon | 1語 miss | — |
+| withers.jp | NO-GO（存在確認・パスキー） | stripe,bankjp | 7語 miss | 代表 鈴木辰／株式会社岐流 |
+| polycaya.jp | NO-GO（存在確認） | square | 6語 miss | 代表 櫻田和朗 |
+| setouchirusk.jp | NO-GO（存在確認） | square,paidy,bankjp | 5語 miss | — |
+| sccij.jp | NO-GO | bankjp,cod,payjp | 1語 miss | reCAPTCHA |
+| tabegorovege.jp | NO-GO | komoju×9,bankjp,postofficebank | 1語 miss | — |
+| lablab.jp | NO-GO | paymentfor-wc | 未 | `/system/` |
+| moriin.jp / name-funding.jp / rhyact.jp | NO-GO | 空 | 未 | — |
+| walkstory.jp | NO-GO | bankjp | 未 | — |
+| os-glint.jp | 二次 | jetpack系,bankjp,cod | 未 | — |
+| tailtree.jp | 二次 | woocommerce_payments,bankjp,cod | 未 | 管理画面内 |
+| carpet-wataso.jp / h-mebuki.jp | 保留 | NOPROD | 未 | 商品取得不可 |
+| rope-lab.jp | 保留（物用） | Stripe 無し | 未 | `/account/`・識別子5本・2,850発 |
+| gyoda-kankoukyoukai / palesgym / savetheworld / seetree | 二次 | 未 | 未 | 別ドメイン mail |
+| btcnext / coffee-pro / coregallery / dognavi / e-homare / elebiz / ja-service / kushironews / kyushumenslacrosse / lily-ec / ls-store / minapieno2023626 / missuniversejapan / mixfarm / momokoart / mutumikai / naturalistico / nishikei / notorand / ok-computer / onsenbox / prebank / rinkr / rotosound / scot-inc / solacha / soraoto / strikerlabo / suzuki-shoten / taira-metaljig / tasukaru / teatherapy / tidylife / tokyo-airport-hire / una-kuyou / warrior / yutani | 未接触（特商法のみ取得） | 未 | 未 | mail 抽出なし |
+| mitsumedo.jp / tkgwa.jp | 未接触 | 未 | 未 | 000 |
+| tmseek.jp | 既試行・打ち止め | — | — | `/`・WAF あり・admin 1300超 |
+| farmex.tokyo | 凍結 | — | — | `/hibari-new2023/`・SQLi のみ |
+| le-bain.com | 打ち止め | — | — | コア throttle |
+| miuragiken.com | 打ち止め | paygent_cc,bankjp | — | `/buqqg6Mf/` |
+| hagihara-ais.com | 語彙枯渇 | bankjp | — | `/my-account/` |
+| s-budou.jp | 進行中 | bankjp | — | `/wp/`・CAPTCHA |
+
+最終接触: 全店 2026-11-22。
