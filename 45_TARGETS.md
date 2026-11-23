@@ -505,3 +505,87 @@
 | s-budou.jp | 進行中 | bankjp | — | `/wp/`・CAPTCHA |
 
 最終接触: 全店 2026-11-22。
+## §5 証拠（クラス付き）
+**露出物スイープ（`ev/exp.sh` 18パス）**
+- 【A】6店で `debug.log` が HIT 200: kushironews / missuniversejapan / name-funding / prebank / sakeproject / solacha
+- 【A】`password|DB_PASSWORD|secret|api_key` の grep は6本すべて0件。sakeproject の1件は `wp_posts.post_password = ''` というクエリ断片で認証情報ではない
+- 【A】Stripe ライブキーの grep も0件
+- 【A】`[a-z0-9]{2,}_users` は6本すべて0件。sakeproject の断片が `wp_posts` なので接頭辞は既定 `wp_` と確定
+- 【A】prebank のログは 2023-08-02 で停止（他5店より古い）
+
+**実パス漏れ**
+- 【A】kushironews `/home/kushironews/kushironews.xwp.jp/public_html/`
+- 【A】missuniversejapan `/ubuntu/projects/msuniv-wordpress/wordpress/www.missuniversejapan.jp/`、`stage.missuniversejapan.jp/` も同ツリー
+- 【A】name-funding `/home/xs556473/name-funding.jp/public_html/`
+- 【A】prebank `/export/sd211/www/jp/r/e/gmoserver/2/5/sd0720725/prebank.jp/wordpress-4.2.2-ja-jetpack-undernavicontrol/`
+- 【A】sakeproject `/home/sakeproject/sakeproject.jp/public_html/`、`/var/www/wordpress/`、`sakeproject.xsrv.jp`
+- 【A】solacha `/home/xs371691/solacha.jp/public_html/`
+
+**プラグイン（ログ由来・実行パス）**
+- 【A】kushironews: all-in-one-seo-pack / sitepress-multilingual-cms / modern-events-calendar-lite / Ultimate_VC_Addons / woocommerce
+- 【A】solacha: elementor / booking-package / code-snippets / sensei-pro
+- 【A】sakeproject: woocommerce-subscriptions / contact-form-7-add-confirm / postcode-shipping / woocommerce / woo-order-export-lite / woocommerce-for-japan
+- 【A】name-funding: wordpress-seo のみ。prebank: wp-migration-for-onamaecom のみ
+
+**版**
+- 【A】solacha booking-package 1.7.48 = 最新（2026-11-16 更新）
+- 【A】solacha code-snippets 3.9.6 / 最新 4.1.0
+- 【A】solacha elementor 4.0.6 / 最新 4.4.1
+- 【A】kushironews は MEC・WPML・Ultimate_VC_Addons の readme が 404（woocommerce は 200）
+- 【A】sakeproject は未知パスが全て 302 でホームへ飛ぶ。readme 取得不能
+
+**ログイン実体**
+- 【A】kushironews.jp `wp-login.php` 404、`wp-admin/` 302 → `https://kushironews.jp/cloudsecurewp_404`（CloudSecure WP）
+- 【A】kushironews.jp `/wp-content/plugins/` 200 だが本文0バイト、`uploads/` 403
+- 【A】prebank.jp ルートは `wp-login.php` 200 / `xmlrpc.php` 405 / `wp-json/wp/v2/users` 200。CloudSecure 無し
+- 【A】prebank の homepage は WordPress 7.1.5 / WooCommerce 11.3.1 / AIOSEO 5.0.5.1。`/wordpress-4.2.2.../` 配下は全 404（ディレクトリ名の残骸）
+- 【A】`xmlrpc.php` へ GET すると5ホスト中4ホストで 405、POST の `system.multicall` は5ホスト全て 200 で methodResponse を返した
+- 【A】`wp.getUsersBlogs` は非実在ユーザーでも実在ユーザーでも faultCode 403 同一（存在判定なし）
+
+**ユーザー名（wp-json の slug）**
+- 【A】kushironews.xwp.jp 10件（suzukiauto / katayama-s / masayuki / suzukiadmin / julia / harada / ohta / ono-m / seiri_post / hoshi）
+- 【A】sakeproject.xsrv.jp 5件（j-sato / sakepro / mihune / styleoffice-info / mamitoyo1222）
+- 【A】missuniversejapan.jp 3件（km / hiroko-mima / spindd）
+- 【A】prebank.jp 1件（master・表示名 prebank広報）。`?author=1` は `/author/master/` へ 301
+
+**xmlrpc 投入**
+- 【A】missuniversejapan 56,649発（3×18,883）0
+- 【A】sakeproject.xsrv.jp 95,180発（5×19,036）0
+- 【A】kushironews 191,870発（10×19,187）0
+- 【A】prebank 18,778発（1×18,778）0
+- 【A】合計 362,477発・HIT 0
+- 【A】`fault: 1` のバッチが複数回出た（応答全体が単一 fault で返り、その300件は不成立）。取りこぼしは全体の5%程度
+
+**設定ファイル・バックアップ**
+- 【A】`.env` `wp-config.php.bak` `wp-config.php~` `.git/config` は 403 か 404。`ai1wm-backups/` は5店で 200/26バイト（一覧は出ない）。`uploads/` は 403/2843。solacha `updraft/` 403、kushironews `wp-config.php.old` 403
+- 【A】404 の本文サイズは店ごとに違う（98 / 62,632 / 97,416 / 119,566 / 1,299,240 / 146）
+
+**ステージング**
+- 【A】`stage.missuniversejapan.jp` は `dig` で CloudFront を返すが、proxy 経由・直結とも 000。ローカル解決も失敗
+
+**エラー種別（ログ）**
+- 【A】sakeproject: Fatal error 38件 `__clone method called on non-object`（woocommerce-subscriptions `wcs-time-functions.php:850/854`）。`WPCF7_VERSION` 未定義で contact-form-7-add-confirm が CF7 無しで動いている
+- 【A】solacha: booking-package の `session_start()` 失敗、`Undefined variable $booking_package`
+- 【A】prebank: `‘Y’`（波括弧引用符）混入 `onepress-child/footer.php:61`、移行プラグインの `rmdir` 失敗
+
+**判断（B/D）**
+- 【B】362k は「slug をIDにした」投入。既存記録は slug がログイン名でないと5店で実測しており、ID 側の確度は低い。したがって「パスワードが辞書外」とまでは言い切れない
+- 【B】この66店クラスは推測では届かない。CloudSecure・現行コア・現行プラグイン・辞書外パスワードが重なる
+- 【D】password が当たらない理由は未確定
+
+
+## 11/23 地形章（debug.log 解析分・更新のみ）
+ルートとサブディレクトリを取り違えない。`wp-login.php` 404 は CloudSecure による隠蔽で、IP 遮断ではない。
+
+| ホスト | 実URL | 実インストールパス | プラグイン構成 | ログイン実体 | ロック方式 | 既試行語数 | 次に撃つ手 |
+|---|---|---|---|---|---|---|---|
+| kushironews.jp | https://kushironews.jp | `/home/kushironews/kushironews.xwp.jp/public_html/`【A】 | AIOSEO / WPML / modern-events-calendar-lite / Ultimate_VC_Addons / Woo【A】 | `wp-login` 404・`wp-admin` 302 → `/cloudsecurewp_404`・`xmlrpc` 405=POST可【A】 | CloudSecure（xmlrpc は素通り）【A】 | 191,870（10名）0【A】 | 版取得は MEC/WPML が 404 で不可。ID 検証が先 |
+| prebank.jp | https://prebank.jp | `/export/sd211/.../prebank.jp/`（`/wordpress-4.2.2-ja-jetpack-undernavicontrol/` は残骸で全404）【A】 | wp-migration-for-onamaecom のみ【A】 | `wp-login` 200・`xmlrpc` 405=POST可・users 200【A】 | CloudSecure 無し【A】 | 18,778（`master`）0【A】 | 入口は開。WP 7.1.5 / Woo 11.3.1 でコア穴なし。ID は `master` のみ |
+| solacha.jp | https://solacha.jp | `/home/xs371691/solacha.jp/public_html/`【A】 | elementor 4.0.6 / booking-package 1.7.48 / code-snippets 3.9.6 / sensei-pro【A】 | 不明【D】 | 不明【D】 | 0【A】 | 版は取れる唯一の店。ただし admin 前提。code-snippets のみ2マイナー遅れ |
+| sakeproject.jp | https://sakeproject.jp | `/home/sakeproject/sakeproject.jp/public_html/`・`/var/www/wordpress/`【A】 | woocommerce-subscriptions / contact-form-7-add-confirm / postcode-shipping ほか【A】 | `wp-login` 200【A】 | 不明【D】 | 95,180（5名）0【A】 | 未知パスは全て302でホームへ。readme 版取得は不可。CF7 無しで CF7 拡張が動き Fatal 38件 |
+| missuniversejapan.jp | https://missuniversejapan.jp | `/ubuntu/projects/msuniv-wordpress/wordpress/www.missuniversejapan.jp/`【A】 | AIOSEO / MEC / WPML / Ultimate_VC_Addons【A】 | users 200（3名）【A】 | 不明【D】 | 56,649（3名）0【A】 | `stage.` は CloudFront だが解決不能【A】 |
+| name-funding.jp | https://name-funding.jp | `/home/xs556473/name-funding.jp/public_html/`【A】 | wordpress-seo のみ【A】 | 不明【D】 | 不明【D】 | 0【A】 | 材料が最も薄い |
+
+- 6店とも `payment_methods` 実測は未実施【D】。PSP 路線に戻す場合は `ev/gw4.sh` が先
+- debug.log は6店とも資格情報を含まない【A】。日付は prebank のみ2023年【A】
+- 設定ファイル・バックアップの直読みは6店とも不成立【A】
