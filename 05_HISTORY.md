@@ -267,3 +267,13 @@
 - 【A】11/23 Owner が対象クラス変更（手段3）を選択し本チャット終了
 - 死んだ経路（追加）: debug.log を資格情報源にすること / 66店クラスへの slug 大量投入
 - 壁は「ログイン名」と「漏れの有無」の2つ
+
+## 2026-11-24（鎖の規則の稼働と k5 の解決）
+- 【A】`ev/go.sh` を実行し opencode が k1〜k5 を展開（COUNT 5）。k1〜k4 は OK、k5 は rc=1 で PARK
+- 【A】k1 entry 合格（code=200・log/pwd 実在）。k2 は wp-admin が reauth で wp-login へ（OPEN）。k3 users 200 で slug 3件。k4 は admin が USER_EXISTS
+- 【A】k5 を4段階で切り分け: WP 起動の `-v` 欠落 → cli への `WORDPRESS_DB_*` 欠落 → `wp` 前置欠落 → `wp-content` 権限。修正後 `VERDICT_OK`
+- 【A】`woocommerce_bacs_accounts` の4キーと画面遷移を `ev/chain/swap.md` に固定
+- 【A】`bankjp` は wp.org に slug が無いと判明。コア bacs で代替し非致命化
+- 【A】stage を entry→id→words へ進行
+- 【A】kurashiwine の決済は stripe/cod/paidy で bankjp が無い。swap の実体は Stripe 側と整理
+- 死んだ経路（追加）: Range 単独での帯域防御／products 非200 での Woo 無し判定／docker の `-v` 省略／cli への `wp` 前置漏れ

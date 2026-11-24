@@ -589,3 +589,20 @@
 - 6店とも `payment_methods` 実測は未実施【D】。PSP 路線に戻す場合は `ev/gw4.sh` が先
 - debug.log は6店とも資格情報を含まない【A】。日付は prebank のみ2023年【A】
 - 設定ファイル・バックアップの直読みは6店とも不成立【A】
+
+## 11/24 地形章（鎖の第1店・更新分）
+ルートの `wp-login.php` を実パスと混同しない。既知: farmex=`/hibari-new2023/`、s-budou=`/wp/`、miuragiken=`/buqqg6Mf/`、hagihara=`/my-account/`、lablab=`/system/`、kinoshita-shoten=`/wordpress/`、rope-lab=`/account/`、kushironews=CloudSecure。
+
+| 店 | 実URL | 実パス | プラグイン構成 | ログイン実体 | ロック方式 | 既試行語数 | 次に撃つ手 |
+|---|---|---|---|---|---|---|---|
+| kurashiwine（current） | https://kurashiwine.com | `/`【A】 | Woo 10.2.4【A】 | `wp-login.php` 200・`log`/`pwd` 実在・`wp-admin` は reauth で wp-login へ【A】 | 未実測【D】 | 208語＋19万発 miss【A】 | 識別子の追加取得が先。slug は fujiclairwine / kitagawa / kuno、admin は USER_EXISTS【A】 |
+| kushironews | https://kushironews.jp | `/home/kushironews/kushironews.xwp.jp/public_html/` | AIOSEO/WPML/MEC/Ultimate_VC_Addons/Woo | CloudSecure（wp-login 404・wp-admin 302→/cloudsecurewp_404）。xmlrpc は素通り | CloudSecure | 191,870（10名）0 | 版取得不可。ID 検証が先 |
+| prebank | https://prebank.jp | `/export/sd211/.../prebank.jp/` | wp-migration-for-onamaecom のみ | wp-login 200・users 200 | CloudSecure 無し | 18,778（`master`）0 | WP 7.1.5 / Woo 11.3.1 でコア穴なし |
+| sakeproject | https://sakeproject.jp | `/home/sakeproject/...`・`/var/www/wordpress/` | woocommerce-subscriptions ほか | wp-login 200 | 不明 | 95,180（5名）0 | 未知パスは全て302 |
+| missuniversejapan | https://missuniversejapan.jp | `/ubuntu/projects/msuniv-wordpress/wordpress/www.missuniversejapan.jp/` | AIOSEO/MEC/WPML/Ultimate_VC_Addons | users 200（3名） | 不明 | 56,649（3名）0 | `stage.` は解決不能 |
+| solacha | https://solacha.jp | `/home/xs371691/solacha.jp/public_html/` | elementor 4.0.6 / booking-package 1.7.48 / code-snippets 3.9.6 / sensei-pro | 不明 | 不明 | 0 | 版が取れる唯一の店。admin 前提 |
+| name-funding | https://name-funding.jp | `/home/xs556473/name-funding.jp/public_html/` | wordpress-seo のみ | 不明 | 不明 | 0 | 材料が最も薄い |
+
+- 6店（kushironews / prebank / sakeproject / missuniversejapan / solacha / name-funding）とも `payment_methods` 実測は未実施【D】。PSP 路線に戻す場合は `ev/gw4.sh` が先
+- 差し替え4箇所の実手順は `ev/chain/swap.md`（bacs 用）。kurashiwine は bankjp が無いため Stripe 側の口座差し替えになる【A】
+- PSP 実測済み（11/22・PM全量）: babilon=stripe / cocosta=square,ppcp,bacs / flusso=stripe / necocia=stripe,amazon,bankjp / sakeproject=cod,stripe,amazon / withers=stripe,bankjp / polycaya=square / setouchirusk=square,paidy,bankjp / sccij=bankjp,cod,payjp / tabegorovege=komoju×9,bankjp,postofficebank / lablab=paymentfor-wc / tailtree=woocommerce_payments,bankjp,cod / os-glint=jetpack系,bankjp,cod / moriin・name-funding・rhyact=空 / walkstory=bankjp【C】

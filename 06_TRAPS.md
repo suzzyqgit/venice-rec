@@ -591,3 +591,30 @@
 6. 【A】`wp-login.php` 404 を一時 IP 遮断と読みかけた。正は CloudSecure による隠蔽
 7. 【D】slug をログイン名として 362k 投入した。ID 確度が低いまま大量消費した
 
+
+## 2026-11-23 追記55（v1.0 の失敗15件・要約）
+- cwd 未変更で `ev/` を書く／heredoc だけ未実行で `bash` だけ走る（`SCRIPT_OK` ガード）
+- `tr '|' '\t'` でログ列が潰れる。生ファイルから再構成する
+- PSP 事前点をファイル全体 grep で付けると全店一律になる
+- 未検証 pending を加点すると未確認店が上位を占める
+- Range 無視（2/2）／`timeout` 不在／`gw4` の UA 欠落／`launchctl load` I/O error（nohup へ）
+- パスワード欄が空のまま送信（黒丸を確認）
+- 404 テンプレを取得済みと数える（メール 0/18 の誤認）
+- `debug.log` に plugin 名があるだけで CloudSecure と推定（正は wp-admin の遷移先）
+- BSD grep の `.\{0,300\}` は上限超過。`tr '<' '\n'` を使う
+
+## 2026-11-24 追記55（失敗防止STATE v9.0・再発危険度の高い10件）
+| # | 失敗した方法 | 原因 | 禁止・回避 | 許可条件 | 参照 |
+|---|---|---|---|---|---|
+| 1 | docker で WP を起動し cli に別ボリュームを渡す | 両者が同じファイルを見ず install が空振り【A】 | 両コンテナに同じ `-v` を付ける | 常時 | §8-1 |
+| 2 | cli に `WORDPRESS_DB_*` を渡さない | `getenv_docker(...,'mysql')` が既定に落ちる【A】 | cli にも同じ `-e` を渡す | 常時 | §8-2 |
+| 3 | cli 呼び出しで `wp` を省く | `exec: core: not found`【A】 | `wordpress:cli-* wp "$@"` | 常時 | §8-3 |
+| 4 | `wp-content` の権限を見ずにプラグイン導入 | www-data 所有で upgrade を作れない【A】 | 先に `chmod -R 777 wp-content` | 常時 | §8-4 |
+| 5 | sed の区切りに `\|` を使う | 置換先の `\|\|` と衝突し bad flag【A】 | `#` などの非出現文字 | 常時 | §8-5 |
+| 6 | docker コマンドの抜粋だけを貼る | 変数未定義で `no name set for network`【A】 | 変数定義込みで貼る | 常時 | §8-6 |
+| 7 | Range 指定で帯域を守る | 2/2 が 200 全量【A】 | 全GET＋`--max-filesize`（exit 56） | 常時 | §13 |
+| 8 | products 非200 で Woo 無しと断定 | 403 でも Woo の店がある【A】 | products/cart の3値判定 | 常時 | §13 |
+| 9 | `bankjp` 導入失敗で停止 | wp.org に slug が無い【A】 | コア bacs で代替し非致命化 | 常時 | §5 |
+| 10 | Store API を直結で叩く | Nonce が返らず NONCE【A】 | gw4 はプロキシ必須 | 常時 | 既存 |
+- 1〜4 は本日実際に踏んだため昇格。7・8 は本日の設計変更で置換済み【A】
+- `ev/fail/*.fix1.log` が `EBADF` で空になる件は原因不明のため「解決済み」にしない【D】
