@@ -286,3 +286,9 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - 段は entry→id→words→swap→verify→done。評価は段の進捗のみ
 - 放棄は理由必須。`ev/chain/abandoned` に残す
 - 段を飛ばす時は根拠を §5 に書く
+
+### 3.23 11/24 追加（kurashiwine の実測）
+- kurashiwine は Jetpack 数学 CAPTCHA が初回から出る。1語2POST。CAPTCHA 通過後は出ない
+- 429 は EUC-JP のバイナリ本文。`iconv -f EUC-JP` か `grep -a` を挟む
+- 429 中は語を消費しない。撃ち続けない。冷却 2400 秒を下限に GET 200 の回復を待つ
+- 1セッションの POST は 20 回を上限の目安にする

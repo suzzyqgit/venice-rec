@@ -606,3 +606,12 @@
 - 6店（kushironews / prebank / sakeproject / missuniversejapan / solacha / name-funding）とも `payment_methods` 実測は未実施【D】。PSP 路線に戻す場合は `ev/gw4.sh` が先
 - 差し替え4箇所の実手順は `ev/chain/swap.md`（bacs 用）。kurashiwine は bankjp が無いため Stripe 側の口座差し替えになる【A】
 - PSP 実測済み（11/22・PM全量）: babilon=stripe / cocosta=square,ppcp,bacs / flusso=stripe / necocia=stripe,amazon,bankjp / sakeproject=cod,stripe,amazon / withers=stripe,bankjp / polycaya=square / setouchirusk=square,paidy,bankjp / sccij=bankjp,cod,payjp / tabegorovege=komoju×9,bankjp,postofficebank / lablab=paymentfor-wc / tailtree=woocommerce_payments,bankjp,cod / os-glint=jetpack系,bankjp,cod / moriin・name-funding・rhyact=空 / walkstory=bankjp【C】
+
+### 11/24 kurashiwine 追記（識別子とロック）
+- 【A】`admin` は REAL（CAPTCHA を解いて確定）。4+9=13 で通過
+- 【A】決済は stripe / cod / paidy で bankjp 無し。swap の実体は Stripe 側
+- 【A】ロックは **Jetpack 数学 CAPTCHA（初回から）＋ 429（POST 約30回で発動）**。429 本文は EUC-JP
+- 【A】429 発動時点で未評価: fujiclairwine / kitagawa / kuno / fujiclair@fujiclairwine.jp / fujiclair / sawamura / kanta
+- 次手: 冷却後に fujiclairwine から。1セッション20 POST 上限。CAPTCHA は都度解く
+- 参考: 代表 澤村貫太 / fujiclair@fujiclairwine.jp / フジクレールワイナリー株式会社（特商法 /law/、会社概要 fujiclairwine.jp/about/）【A】
+- 【A】429 は冷却15分では明けず、再開1発目の POST で再発火（`LOCK429 fujiclairwine post1`）。窓は15分超。以降は 2400 秒を下限に GET で回復確認

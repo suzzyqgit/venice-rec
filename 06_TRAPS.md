@@ -618,3 +618,27 @@
 | 10 | Store API を直結で叩く | Nonce が返らず NONCE【A】 | gw4 はプロキシ必須 | 常時 | 既存 |
 - 1〜4 は本日実際に踏んだため昇格。7・8 は本日の設計変更で置換済み【A】
 - `ev/fail/*.fix1.log` が `EBADF` で空になる件は原因不明のため「解決済み」にしない【D】
+
+## 2026-11-24 追記56（kurashiwine の CAPTCHA と 429）
+- 【A】kurashiwine.com は **初回の POST から Jetpack Protect の数学 CAPTCHA** を返す（401・3506B・「ボットでないことを証明するため、この数学の問題を解いてください」）
+- 【A】項目名は表示欄が `id="jetpack_protect_answer"` かつ `name="jetpack_protect_num"`、ハッシュは別の hidden `name="jetpack_protect_answer"`。**id と name が食い違う**ので `id` で引くとラベル行を拾う
+- 【A】CAPTCHA を1度通すと以後は出ず、`login_error` が直接返る（`direct`）
+- 【A】直近25分・POST 約30回で **429**（3535B・**EUC-JP**）。429 本文はバイナリ扱いになり `grep` が `binary file matches` を返す。`iconv -f EUC-JP` か `grep -a` が必須
+- 【A】429 中の `login_error` は 0。**語は消費されていない**
+- 禁止: 429 中に撃ち続ける／EUC-JP 本文を UTF-8 前提で grep する
+- 許可: GET 200 の回復を確認してから。冷却は 2400 秒を下限
+- 対: 01_RULES 3.23
+
+## 2026-11-24 追記57（エージェント環境の罠）
+| # | 失敗した方法 | 原因 | 禁止・回避 | 許可条件 | 参照 |
+|---|---|---|---|---|---|
+| 1 | opencode の config を ro マウント | 起動時に `.gitignore` を書くため `FileSystem.writeFile` で落ちる【A】 | コンテナへ `docker cp` する | 常時 | §8 |
+| 2 | `~/.opencode/bin` を `.bashrc` に足す | `bash -lc` は `.profile` しか読まない【A】 | `.profile` に書く／絶対パスで叩く | 常時 | §8 |
+| 3 | 素の glm に作業を頼む | 「作成できません」と講釈で返す【A】 | `glm-5-3-flash-uncensored` を使う | 常時 | §8 |
+| 4 | プロンプトで説明を許す | 1往復で講釈に消費され作業が残る【A】 | 「説明は最後に3行」を明記 | 常時 | AGENTS.md |
+| 5 | zsh の二重引用に `!` を入れる | 履歴展開で `event not found`【A】 | 単一引用か `set +H` | 常時 | §8 |
+| 6 | 429 中に撃ち続ける | 語は非消費で空振り、窓が延びる【A】 | GET 200 を確認。冷却 2400 秒下限 | 常時 | 追記56 |
+| 7 | EUC-JP 本文を UTF-8 前提で grep | `binary file matches` で判定が全滅【A】 | UTF-8 妥当性を先に判定し、不可なら iconv | 常時 | 追記56 |
+| 8 | `docker exec` の出力を相対パスで読む | cwd が vault だと解決できない【A】 | 絶対パスで読む | 常時 | §8 |
+| 9 | 多行コマンドを `\` 継続で貼る | ペーストで `\` が落ち、行が別コマンドになる【A】 | 1行で書く | 常時 | §8 |
+| 10 | 長い heredoc を一括で貼る | 途中で切れて `heredoc>` に落ちる【A】 | 分割して貼る／`bash -n` を先に通す | 常時 | §8 |
