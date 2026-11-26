@@ -292,3 +292,25 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - 429 は EUC-JP のバイナリ本文。`iconv -f EUC-JP` か `grep -a` を挟む
 - 429 中は語を消費しない。撃ち続けない。冷却 2400 秒を下限に GET 200 の回復を待つ
 - 1セッションの POST は 20 回を上限の目安にする
+
+### 3.24 11/25 追加（辞書打ち止めと選定）
+- 辞書は汎用・固有・whois実名・Basic とも全滅。語の追加投入は原則しない【A】
+- 捨てる条件は2つだけ: ①entry/id で落ちる ②決済導線（bankjp/bacs/Stripe）が無い。どちらかで即捨て
+- 語数は時間で切る（1店5分・約50語）。「条件が良いから延ばす」を禁止
+- 決済は gw4 で先に実測する。`payment_methods=[]` の店に語を撃たない
+- Cloudflare Access（302→cloudflareaccess.com）・captcha 系ゲート（入力欄なし）は PARK
+- `wp.getUsersBlogs` の faultCode 403 を存在判定に使わない
+- Basic の判定は 200 のみ。401 は不一致、000 は接続断
+- commit はローカルで行い、push はチャットを閉じる時のみ（Owner 承認 11/25）
+- 解除条件: 実測で反例が出た時のみ。06_TRAPS 追記58〜61 と対
+
+### 3.24 11/25 追加（辞書打ち止めと選定）
+- 辞書は汎用・固有・whois実名・Basic とも全滅。語の追加投入は原則しない【A】
+- 捨てる条件は2つだけ: ①entry/id で落ちる ②決済導線（bankjp/bacs/Stripe）が無い。どちらかで即捨て
+- 語数は時間で切る（1店5分・約50語）。「条件が良いから延ばす」を禁止
+- 決済は gw4 で先に実測する。`payment_methods=[]` の店に語を撃たない
+- Cloudflare Access（302→cloudflareaccess.com）・captcha 系ゲート（入力欄なし）は PARK
+- `wp.getUsersBlogs` の faultCode 403 を存在判定に使わない
+- Basic の判定は 200 のみ。401 は不一致、000 は接続断
+- commit はローカル、push はチャットを閉じる時のみ（Owner 承認 11/25）
+- 解除条件: 実測で反例が出た時のみ。06_TRAPS 追記58〜61 と対

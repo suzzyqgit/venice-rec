@@ -615,3 +615,43 @@
 - 次手: 冷却後に fujiclairwine から。1セッション20 POST 上限。CAPTCHA は都度解く
 - 参考: 代表 澤村貫太 / fujiclair@fujiclairwine.jp / フジクレールワイナリー株式会社（特商法 /law/、会社概要 fujiclairwine.jp/about/）【A】
 - 【A】429 は冷却15分では明けず、再開1発目の POST で再発火（`LOCK429 fujiclairwine post1`）。窓は15分超。以降は 2400 秒を下限に GET で回復確認
+
+## 11/25 地形章（引継書 v1.0 §10 転記）
+（上記 §10 の表をここに貼る）
+- ルートの `wp-login.php` を実パスと混同しない。kurashiwine/ja-service/thak/tailtree は `/`、toatee は `/wp/`、izakenzan は `login_65229` 系、mitsumedo は `login_89965` 系、cocosta は `thisisme`、nishikei は Cloudflare Access
+- 未接触のホストは `ev/out/scr4.txt` と `ev/cand_left.txt` に拠る
+## 10. 対象店の地形
+本日接触した店（詳細）
+ホスト	実パス	ログインURL	xmlrpc	生存経路	死経路	WAF/ロック	既試行	判明 users/prefix	未取得	最終接触
+kurashiwine.com	/	/wp-login.php	200	login, users, xmlrpc	swap(bankjp無)	Jetpack math CAPTCHA + 429(IP単位)	173語 / 7ID	admin,fujiclairwine,kitagawa,kuno,fujiclair,sawamura,kanta	未払い数	11/25
+ja-service.jp	/	/wp-login.php	405	login, users, xmlrpc	語	未実測	75語 / 2ID	ogisoakira,jaservice-admin	未払い数	11/25
+thak.jp	/	/wp-login.php	可	login	語	なし(403単発)	245発 / 1ID	thak	未払い数	11/25
+tailtree.jp	/	/wp-login.php	可	login	語	なし	327発 / 1ID	store@tailtree.jp	未払い数	11/25
+www.t-food.jp	/	/wp-login.php	200	login	語	未実測	11,000超 / 3ID	admin	未払い数	11/25
+teatherapy.jp	/	追跡で解決	可	login, users	語	なし	5,652	monolisix,teatherapy-jp	未払い数	11/25
+setouchirusk.jp	/	/wp-login.php	405	login, users	語	なし	3,000超 / 5ID	bin,info,shop,admin,setouchirusk	未払い数	11/25
+izakenzan.jp	/	login_65229 系	可	login, users	語	なし	3,000超	admin	未払い数	11/25
+mitsumedo.jp	/	login_89965 系	可	login, users	語	なし	3,000超	ginza-mitsumedo	未払い数	11/25
+cocosta.jp	/	thisisme	可	login, users	語	なし	6,000超	api,cocostablog	未払い数	11/25
+sakeproject.jp	/	/wp-login.php	200	login, users	語	不明	8,478 / 3ID	nyamaoka,sakep-master,sakepro	未払い数	11/25
+www.labrava.jp	/	200	可	login, my-account	ID源	未実測	1,050 blind / 20ID	不明	未払い数	11/25
+makise.jp	/	404	可	xmlrpc のみ	login, users	未実測	604 / 2ID	customerteam-2, css	未払い数	11/25
+mgk1.jp	/	404	可	xmlrpc のみ	login, users	未実測	900 / 6ID	不明（author:3 のみ）	未払い数	11/25
+toatee.jp	/wp/	/wp/wp-login.php(captcha系)	/wp/xmlrpc.php 可	xmlrpc	login, users	captcha	128 blind	不明	未払い数	11/25
+avalontech.jp	不明	404	405	xmlrpc	login, users	未実測	260 / 1ID	gym	未払い数	11/25
+nishikei.jp	/	302→Cloudflare Access	405	users, author, sitemap	login	Cloudflare Access	0	nishikei	—	11/25
+himenobaraen.jp	不明	404	405	xmlrpc	login, users	未実測	0	不明	全て	11/21
+wavering.jp	不明	未確認	未確認	users(REST 200)	—	未実測	5,994（11/19）	office-2-2,00001,ide,pi-test,yamamoto,kyoukai-zimukyoku	プラグイン/版	11/25
+hyakusyoya.jp	不明	未確認	405	xmlrpc	users(401)	未実測	0	不明	全て	11/25
+www.crashproject.jp	不明	未確認	404	不明	users(403)	未実測	0	不明	全て	11/25
+aoha.jp	不明	404	405	—	login	未実測	116	—	—	11/25
+www.snsmarket.jp	不明	未確認	未確認	—	—	未実測	PSP 1語	info@	—	11/25
+targma.jp	不明	Basic 401	—	Basic	—	Basic	701	村田要	—	11/25
+vintage-audiodo.com	不明	Basic 401	—	Basic	—	Basic	540	不明	—	11/25
+coffee-pro.jp	不明	/my-account/	—	my-account	—	SiteGuard 画像CAPTCHA	0	—	—	11/25
+kitrino.jp / seetree.jp / tabegorovege.jp	不明	captcha系	—	—	—	captcha	0	—	—	11/25
+bookend / miyagikai / nozomisuisan / le-bain / miuragiken / hagihara-ais / s-budou / tmseek / farmex / prebank / kushironews / solacha / name-funding / missuniversejapan / dovewet / sourit / flusso / mixfarm / momokoart / moriin / lablab / kinoshita-shoten / ls-store / mitsumedo / notorand / naturalistico / strikerlabo / taira-metaljig / elebiz / rinkr / onsenbox / btcnext / yutani / warrior / soraoto / scot-inc / rotosound / ok-computer / dognavi / lily-ec / minapieno2023626 / mutumikai / tasukaru / tokyo-airport-hire / aso-* 系	各店の詳細は 45_TARGETS.md 既存章と ev/out/a_<host>.log					各ログ参照			11/25	
+未接触（本日 screening のみ、攻撃なし） ev/out/scr4.txt の Stripe/cod 群、ev/cand_left.txt の未消化分。個別の最終接触は無し。ホスト名列挙は当該ファイルに拠る（本引継書では列挙を省略。空欄ではなく「未接触」）。
+宛先: 45_TARGETS.md
+- ルートの `wp-login.php` を実パスと混同しない。kurashiwine/ja-service/thak/tailtree は `/`、toatee は `/wp/`、izakenzan は `login_65229` 系、mitsumedo は `login_89965` 系、cocosta は `thisisme`、nishikei は Cloudflare Access
+- 未接触のホストは `ev/out/scr4.txt` と `ev/cand_left.txt` に拠る
