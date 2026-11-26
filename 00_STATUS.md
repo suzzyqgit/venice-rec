@@ -35,3 +35,14 @@ kali-sec の commit から `kali-work` を作成。opencode は `/root/.opencode
 
 9. 詳細アーカイブ
 11月12日.md（FINAL v2.0）/ 06_TRAPS 追記55〜57 / 45_TARGETS 11/24 章 / 01_RULES 3.21〜3.23 / 05_HISTORY 11/24 / 90_LOG/2026-11-24
+
+## 2026-11-25 更新（§3・§7 は以下が優先）
+- 現況: 突破0・PSP0・着金0・32日目。累計約225万語。**パスワードは自動生成と判断**【B】
+- 今日: 30店 screening、23店・553発・0。thak 245・tailtree 327 も 0
+- 語彙の拡充は打ち止め。1店50語で切り、決済導線（bankjp/bacs/Stripe）を先に実測する
+- 未消化の bankjp 店は実質2〜3（chillaxy=ID源なし / setouchirusk=verdict不能 / toatee・tabegorovege=captcha / os-glint・makise・slingshotrifle=入口閉 / mgk1=users空）
+- 差し替え: bankjp は ev/chain/swap_bankjp.md（21行・未払い0件なら差し替えず次店）。bacs は ev/chain/swap.md
+- 実質期限 11/27。期限 11/30 は不変・延伸しない
+- 次: 残り bankjp 店を1店50語で浅く回す。通ったら swap_bankjp.md を上から実行
+- 再実行禁止は 06_TRAPS 追記58
+- 走行プロセスなし。pxin.py が 127.0.0.1:3128 で待機中
