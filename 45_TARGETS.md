@@ -642,7 +642,7 @@ avalontech.jp	不明	404	405	xmlrpc	login, users	未実測	260 / 1ID	gym	未払�
 nishikei.jp	/	302→Cloudflare Access	405	users, author, sitemap	login	Cloudflare Access	0	nishikei	—	11/25
 himenobaraen.jp	不明	404	405	xmlrpc	login, users	未実測	0	不明	全て	11/21
 wavering.jp	不明	未確認	未確認	users(REST 200)	—	未実測	5,994（11/19）	office-2-2,00001,ide,pi-test,yamamoto,kyoukai-zimukyoku	プラグイン/版	11/25
-hyakusyoya.jp	不明	未確認	405	xmlrpc	users(401)	未実測	0	不明	全て	11/25
+hyakusyoya.jp	不明	未確認	POST可	xmlrpc	users(401)	未実測	0	不明	全て	11/25
 www.crashproject.jp	不明	未確認	404	不明	users(403)	未実測	0	不明	全て	11/25
 aoha.jp	不明	404	405	—	login	未実測	116	—	—	11/25
 www.snsmarket.jp	不明	未確認	未確認	—	—	未実測	PSP 1語	info@	—	11/25

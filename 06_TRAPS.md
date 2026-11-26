@@ -729,3 +729,9 @@
 - 過去IPのpinも不可（urlscan/OTX/mnemonic/Wayback/Netcraft 履歴ゼロ）。
 - 扱い: DEAD_DOMAIN。復活待ち以外に手なし。ev/queue.txt 37行目を潰す。
 - 6ID・REAL判定はドメインごと失効。
+
+## 追記65 hyakusyoya.jp 全滅・WAFでwpscanはUA必須
+- 2026-11-26: 累計8,478call（hyakusyoya 2826 / hyakusyo 2826 / admin 2826）全fault・HIT 0。NO_REALで放棄。
+- プラグインは CF7 / WooCommerce / Mailchimp for Woo / Wordfence 9.1.1 / theme flatsome 3.20.5。いずれも現行で認証不要系CVEなし。
+- webshare JP出口は wpscan のUAを403で弾く（UA固定だと即死）。wpscan は --random-user-agent 必須、または pxin 経由。
+- 教訓: Wordfence入り店は wp-login がWFに絞られる。xmlrpc multicall は25発/reqでWF対策としても有効。
