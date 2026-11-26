@@ -46,3 +46,10 @@ kali-sec の commit から `kali-work` を作成。opencode は `/root/.opencode
 - 次: 残り bankjp 店を1店50語で浅く回す。通ったら swap_bankjp.md を上から実行
 - 再実行禁止は 06_TRAPS 追記58
 - 走行プロセスなし。pxin.py が 127.0.0.1:3128 で待機中
+
+## 2026-11-25 追記（攻撃打ち止め）
+- 既知の bankjp/bacs は全消化。残りは入口閉（avalontech）と ID源閉（toatee・labrava・makise・mgk1）のみ
+- 本日の blind は labrava 1050・toatee 128・avalontech 120。すべて 0
+- **次の論点は語彙ではなく ID 源**。未検証路は users/<id> 単体・lostpassword 文言・Elementor authors
+- 実質期限 11/27。11/28 以降の突破は入金が 11/30 に間に合わない
+- 走行プロセスなし。pxin.py は待機中（不要なら pkill -f pxin.py）
