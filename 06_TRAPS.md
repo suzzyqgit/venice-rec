@@ -668,3 +668,12 @@
 - 【A】`wp/xmlrpc.php` のように実パス配下の xmlrpc は生きていることがある。`x3.py` は XR 環境変数でパスを差し替える
 - 未検証の残路: `wp/v2/users/<id>` 単体、`?action=lostpassword` の文言差、Elementor の authors
 - 解除条件: 実測で反例が出た時のみ
+
+## 2026-11-25 追記60（語を語にならない形で撃つ）
+- 【A】Store API の商品名は `\u304a\u8a66\u3057` 形式で返る。シェルの grep|cut では実体にならず、**エスケープ文字列そのものをパスワードとして投げてしまう**（t-food で31語中30語が不成立）
+- 【A】語を組み立てたら、ASCII 以外が `\u` で始まっていないか1度確認する
+- 【A】python では `json.loads` して実体化する。xmlrpc なら日本語をそのまま送れる
+- 【A】回避後も t-food は 51語（人名・地名・ブランド・商品スラッグ）で 102 call 全 fault
+- 併せて確定: 汎用語 2826 を実 ID のある6店に全消化し 28,260 call で 0（teatherapy/setouchirusk/izakenzan/mitsumedo/cocosta/t-food）【A】
+- 結論: 汎用辞書もサイト固有語も不発。この母集団は辞書では抜けない【B】
+- 解除条件: 実測で反例が出た時のみ

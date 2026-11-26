@@ -53,3 +53,12 @@ kali-sec の commit から `kali-work` を作成。opencode は `/root/.opencode
 - **次の論点は語彙ではなく ID 源**。未検証路は users/<id> 単体・lostpassword 文言・Elementor authors
 - 実質期限 11/27。11/28 以降の突破は入金が 11/30 に間に合わない
 - 走行プロセスなし。pxin.py は待機中（不要なら pkill -f pxin.py）
+
+## 2026-11-25 追記（打ち止め確定）
+- 汎用語在庫 2826 を実 ID のある6店に全消化。28,260 call・HIT 0
+- サイト固有語（実名・地名・ブランド・商品）も thak 245 / tailtree 327 / t-food 102 で 0
+- **辞書では抜けない**と判断【B】。語の在庫も尽きた
+- 残りは入口の壁2店のみ: himenobaraen（users 401・wp-login 404）、nishikei（Cloudflare Access・bacs）
+- 本日の総計は約3万 call・0。突破0・着金0
+- 実質期限 11/27。以降の突破は入金が 11/30 に間に合わない
+- 次に語を積むなら ID ではなく**語の新規調達**から。ただし汎用・固有とも不発なので期待は低い
