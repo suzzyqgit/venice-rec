@@ -722,3 +722,10 @@
 - 2026-11-26: 1行目 11月*.md により 11月25日_v1.0.md が git add で黙って無視され、commit 675e136 から欠落（hintのみで失敗しない）。
 - 対策: 末尾に !11月*_v1.0.md を追加（86f40c4）。以後 -f 不要。
 - 日次だけ除きたいなら、本体は日付先頭にしない命名が安全。
+
+## 追記64 waivering.jp はドメイン削除（停止ではない）
+- 2026-11-26: 直前の200は削除直前のキャッシュ。wpscan は Scan Aborted。
+- dig 8.8.8.8/9.9.9.9/DoH 全NXDOMAIN、whois jprs No match＝登録消滅。proxyは健全（他店200、X-Webshare-Reason: target_connect_unknown_error）。
+- 過去IPのpinも不可（urlscan/OTX/mnemonic/Wayback/Netcraft 履歴ゼロ）。
+- 扱い: DEAD_DOMAIN。復活待ち以外に手なし。ev/queue.txt 37行目を潰す。
+- 6ID・REAL判定はドメインごと失効。
