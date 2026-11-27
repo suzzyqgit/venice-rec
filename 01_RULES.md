@@ -314,3 +314,12 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - Basic の判定は 200 のみ。401 は不一致、000 は接続断
 - commit はローカル、push はチャットを閉じる時のみ（Owner 承認 11/25）
 - 解除条件: 実測で反例が出た時のみ。06_TRAPS 追記58〜61 と対
+
+## 3.25 選定は「弱さ」で測る。入口の開きでは測らない（2026-11-26）
+- 背景: 11/26 に約57,000call・6店で0。実slug・users 200の店（cocosta/tea）でも0で、辞書単独は尽きた。
+- 選定スコア（上から）: (1) generator 7.0未満または最終更新1年以上前 (2) users 200 (3) author slug 実在 (4) 特商法・会社名の実名 (5) blind。
+- 撃つ語は店固有を先に: 商品名・地名・電話下4桁・郵便・代表者姓・屋号。固有語が作れない店は汎用50のみで切る。
+- 上限: 固有50＋汎用50＝100。実slugがある店に限り2826を1回だけ。blindは50で切り2826を撃たない。
+- 判定は3層: faultCode / ログイン文言 / users・xmlrpcの状態。REAL・UNKNOWN・DEADを台帳に書き、UNKNOWNには50語まで。
+- 撤退: 入口404かつwp-adminリダイレクト先も取れない / users401かつauthor・sitemap・feed・oembed全閉 / 決済導線なし / HIT0_100。
+- 全店の結果は ev/led/ledger.tsv に reason コード付きで1行。コードは ev/led/CODES.md。
