@@ -735,3 +735,22 @@
 - プラグインは CF7 / WooCommerce / Mailchimp for Woo / Wordfence 9.1.1 / theme flatsome 3.20.5。いずれも現行で認証不要系CVEなし。
 - webshare JP出口は wpscan のUAを403で弾く（UA固定だと即死）。wpscan は --random-user-agent 必須、または pxin 経由。
 - 教訓: Wordfence入り店は wp-login がWFに絞られる。xmlrpc multicall は25発/reqでWF対策としても有効。
+
+## 追記66 wpscan の二重起動と tail 流し
+- 2026-11-26: 同じ店に wpscan を2本同時に流し、片方は tail -70 で流したため検出前半が消えた。
+- wpscan は必ずファイルへ全量リダイレクト。timeout は 400 では足りず 900 でも SIGTERM。
+- vp（脆弱性）はAPIトークン必須。無いと Scan Aborted。ap,u はトークン不要で検出のみ可能。
+
+## 追記67 コンテナの locale で文字範囲が死ぬ
+- grep -E "[一-龥ぁ-ん]" は Invalid collation character。
+- 対策: 範囲を使わず固定語（株式会社|代表者 等）で拾う。タグは tr "<" "\n" で割ってから grep。
+
+## 追記68 貼る1行の壊れ方
+- docker exec bash -c の外側が単一引用符なので、中に単一引用符を入れると壊れる。スクリプト内は二重引用符のみ。
+- sed の置換で行末 `$` を書くと bash が位置引数数に展開して unterminated になる。行末は固定文字列で置換する。
+- sed の i/c に \n を混ぜると行が割れる。Python なら ast.parse で検証してから実行。
+- float("7.1.4") は例外。版は split(".")[:2] で2要素に切ってから数値化。
+
+## 追記69 有効だった回避
+- xmlrpc multicall は SiteGuard 等のログインCAPTCHAを通らない。CAPTCHA店は wp-login でなく xmlrpc で撃つ。
+- bacs の口座は option woocommerce_bacs_accounts の4項目（account_name/account_number/bank_name/sort_code）。有効化は woocommerce_bacs_settings.enabled。
