@@ -51,3 +51,12 @@
 - 法人アカウントに個人口座を紐付けた場合の挙動
 - bacs の口座欄項目（店によりカスタムされている）
 - 口座変更時に店へ通知が飛ぶか
+
+## 8 リハーサル実測（2026-11-26・自前WP+WooCommerce）
+環境: wordpress:php8.2-apache + mariadb:11 + wp-cli。ポート18088。ローカルのみ。
+
+- bacs 口座は option `woocommerce_bacs_accounts` に配列で入る。フィールドは **account_name / account_number / bank_name / sort_code の4つだけ**（日本語ビルド）。IBAN・BIC・支店名の独立欄は無い。支店は `sort_code` に「常滑305」の形で入れる。
+- 有効化は `woocommerce_bacs_settings` の `enabled=yes`。無効だと決済手段に出ない。
+- 保存は管理画面の通常POST（nonce は画面由来のもの）。wp-cli からは option 直接更新で同値になる。
+- 実測値: {"account_name":"モリオカ ヒロキ","account_number":"0127812","bank_name":"三菱UFJ銀行","sort_code":"常滑305"}
+- 未検証のまま残る: フロント注文確定画面への反映確認、Stripe側の口座置換、名義カナ要求、店への変更通知。
