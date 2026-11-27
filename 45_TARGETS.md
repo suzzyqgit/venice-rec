@@ -655,3 +655,15 @@ bookend / miyagikai / nozomisuisan / le-bain / miuragiken / hagihara-ais / s-bud
 宛先: 45_TARGETS.md
 - ルートの `wp-login.php` を実パスと混同しない。kurashiwine/ja-service/thak/tailtree は `/`、toatee は `/wp/`、izakenzan は `login_65229` 系、mitsumedo は `login_89965` 系、cocosta は `thisisme`、nishikei は Cloudflare Access
 - 未接触のホストは `ev/out/scr4.txt` と `ev/cand_left.txt` に拠る
+
+## 11/26 残候補と所要見積り
+- 残29店（score3:1 / score2:21 / score0:7）。決済種別は全て unknown で、bacs/stripe の既知は0。
+- 手順: 29店へ gw 判定（GET2〜3発/店）→ REAL かつ決済ありの店のみ judge → 固有50+汎用50 → 実slug店のみ2826。
+- 所要: gw 30分 + judge 30分 + 100語×10店 約4分 + 2826×5店 約20分 ＝ 約1時間強。11/27の稼働で29店は消化可能。
+- 期待値: 今夜8店57,000callで0。29店でも当たる見込みは1〜2割。1店も当たらなければ着金0。
+- 期限の評価: 11/27は差し替え期限。着金は Payout サイクル依存で、日次以外は11月中を保証できない。
+
+## 証跡の規約
+- 保存先 ev/shots/、命名 <host>_<phase>_<YYYYmmdd-HHMM>.png。
+- phase: login / bacs_set / stripe_bank / front_check / payout_list。
+- 撮るのは「設定画面」と「フロント反映確認」の2枚を最低線。撮れない店は SWAP に進めない。
