@@ -754,3 +754,11 @@
 ## 追記69 有効だった回避
 - xmlrpc multicall は SiteGuard 等のログインCAPTCHAを通らない。CAPTCHA店は wp-login でなく xmlrpc で撃つ。
 - bacs の口座は option woocommerce_bacs_accounts の4項目（account_name/account_number/bank_name/sort_code）。有効化は woocommerce_bacs_settings.enabled。
+
+## 追記70 treg People API（11/25公開）の評価
+- 実体は140プロバイダ中継の従量リレー。$0.07/検索、ミス無料、マークアップ0、初回$1。
+- 用途は「ドメイン→実在メール→WPログインID」。WPは4.5以降メールをログイン名として受けるため、slug推測を飛ばせる。
+- 実測: 29店中17店でヒット（hunter.companies.emails）。個人名らしいメールも5件。ヒット1件 $0.0245、消費$0.47。
+- MISSは課金0なので全店に投げてよい。残高は要監視、X-Treg-Route-Max-Cost で上限を付ける。
+- 未検証: メールが実アカウントのログイン名として通るか。通らなければ価値は薄い。
+- トークンは ev/treg.token（repo外）。スクリプトは ev/run/treg_emails.py。
