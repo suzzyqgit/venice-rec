@@ -104,3 +104,10 @@ kali-sec の commit から `kali-work` を作成。opencode は `/root/.opencode
 - リハーサル: 自前WP+Wooで bacs は4項目（account_name/account_number/bank_name/sort_code）と実測。
 - 次: 残29店（score3:1 / 2:21 / 0:7）へ gw 判定 → REALかつ決済ありのみ judge → 固有50+汎用50。約1時間強。
 - 未: 5（巻き戻し実地）と 9（管理画面自動化）は実突破が前提。
+
+## 11/26 treg 結果と明日の手順
+- 29店中17店でメール取得。うち未接触16店を ev/led/treg_targets.tsv にスコア順で固定。
+- 残高 $0.53（19ヒット消費 $0.47）。取得はここで停止。
+- 明日の順: judge で入口・xmlrpc・決済を測る → REALかつ決済ありのみ、メール＋ローカル部＋slugをIDに、汎用20語。
+- 最初の1店で「メールがログインとして通るか」を判定する。通らなければ treg はID源として無効、以後はslugとblindに戻す。
+- メールは catch-all の可能性がある。faultCodeだけでは当否が判れないため、HITの有無で判断する。
