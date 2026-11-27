@@ -12,6 +12,7 @@ for n in $(seq 1 $N); do
   IDS=$(echo "$OUT" | sed "s/.*ids=//; s/,$//")
   if [ "$V" != "REAL" ]; then echo "$H SKIP $V"; continue; fi
   if [ "$PAY" = "none" ]; then echo "$H SKIP NO_PAY"; continue; fi
+  E=$(awk -F"	" -v h="$H" "$1==h{print $2}" ev/led/treg_hits.tsv); if [ -n "$E" ]; then IDS="$IDS,$E"; fi
   if [ -z "$IDS" ]; then echo "$H SKIP NOID"; continue; fi
   python3 ev/run/gw_words.py "$H" | head -50 > /tmp/wl_a_$H
   head -50 /tmp/wbig.txt >> /tmp/wl_a_$H
