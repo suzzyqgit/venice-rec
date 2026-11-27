@@ -323,3 +323,11 @@ FOFA 有料枠／Muse への供給依頼／`readme.txt` 単独での Woo 判定�
 - 判定は3層: faultCode / ログイン文言 / users・xmlrpcの状態。REAL・UNKNOWN・DEADを台帳に書き、UNKNOWNには50語まで。
 - 撤退: 入口404かつwp-adminリダイレクト先も取れない / users401かつauthor・sitemap・feed・oembed全閉 / 決済導線なし / HIT0_100。
 - 全店の結果は ev/led/ledger.tsv に reason コード付きで1行。コードは ev/led/CODES.md。
+
+## 3.26 必読ファイルの上限と退避（2026-11-27）
+- 必読は NOW.md / 03_DECISIONS.tsv / 04_REJECTED.tsv / 06_TRAPS_CORE.md の4つだけ。他は参照。
+- 上限: NOW 40行、DEC 有効30行、REJ 40行、CORE 20条。超えたら退避する。
+- 退避先: 罠は 06_TRAPS_LOG、決定は SUPERSEDED を付けて 05_HISTORY、却下は同種を1行に畳む。
+- NOW は追記せず上書き。現在地は直近3手まで。古い経緯は 05_HISTORY に移す。
+- 45_TARGETS は特記ある店だけ散文。実行は ev/led/targets 系のTSV。
+- セッション終了時に上限超過を確認し、超えていれば圧縮してから閉じる。
