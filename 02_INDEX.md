@@ -1,3 +1,10 @@
+# 読む順（2026-11-27 改定）
+
+必読: NOW.md / 03_DECISIONS.tsv / 04_REJECTED.tsv / 06_TRAPS_CORE.md
+参照のみ: 02_INDEX(本ファイル) / 01_RULES / 06_TRAPS_LOG / 45_TARGETS / 05_HISTORY
+
+---
+
 # 目次（INDEX）
 
 毎回読むのは `00_STATUS.md` と `01_RULES.md` と本ファイルのみ。他は必要時に見出し指定で部分読みする。
